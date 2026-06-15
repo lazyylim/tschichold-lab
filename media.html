@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tschichold Lab - Media Mode</title>
+  <link rel="stylesheet" href="main.css">
+  <style>
+    /* Hide topbar and expand lab body to fill the entire iframe viewport */
+    .topbar { display: none !important; }
+    .lab-body { height: 100% !important; }
+  </style>
+</head>
+<body>
+
+<div class="intro-modal" id="introModal" role="region" aria-labelledby="introTitle">
+  <div class="intro-guide" aria-live="polite">
+    <button class="intro-close" id="introClose" type="button" aria-label="가이드 닫기">×</button>
+    <div class="intro-content" id="introContent">
+      <div class="intro-kicker" id="introKicker">Step 1 / 4</div>
+      <h1 class="intro-title" id="introTitle">광고 선택</h1>
+      <p class="intro-copy" id="introCopy">오른쪽 매체에서 광고를 먼저 고르세요.</p>
+    </div>
+    <div class="intro-progress" aria-hidden="true">
+      <span data-guide-dot="medium"></span>
+      <span data-guide-dot="era"></span>
+      <span data-guide-dot="layout"></span>
+      <span data-guide-dot="box"></span>
+    </div>
+  </div>
+</div>
+
+<div id="lab">
+  <div class="topbar">
+    <span class="logo" title="Tschichold Lab">Tschichold Lab</span>
+  </div>
+  <div class="lab-body">
+    <div class="canvas-wrap" id="canvasWrap">
+      <button class="compare-btn" id="compareBtn" onclick="toggleCompare()">원본 비교</button>
+      <button class="guide-open-btn" id="guideOpenBtn" type="button" onclick="openIntroGuide()">가이드</button>
+      <figure class="reference-preview hide" id="referencePreview" aria-label="원본 참고 이미지">
+        <div class="reference-preview-frame">
+          <img id="referencePreviewImg" alt="현재 레이아웃 원본">
+        </div>
+        <figcaption id="referencePreviewLabel">원본 참고</figcaption>
+      </figure>
+      <div class="canvas-area" id="canvas" style="width:420px;height:560px"></div>
+      <button class="dl-btn" onclick="downloadCanvas()">저장 ↓</button>
+
+      <!-- 4. 줌 표시 박스 (좌하단) -->
+      <div class="zoom-box" id="zoomBox">
+        <div class="zoom-main">
+          <span class="zoom-value" id="zoomValue" contenteditable="true"
+            onblur="applyZoomInput()"
+            onkeydown="if(event.key==='Enter'){event.preventDefault();applyZoomInput();}">100%</span>
+          <div class="zoom-arrows">
+            <button class="zoom-arrow-btn" onclick="zoomStep('up')" title="확대">▲</button>
+            <button class="zoom-arrow-btn" onclick="zoomStep('down')" title="축소">▼</button>
+          </div>
+        </div>
+        <div class="zoom-dropdown" id="zoomDropdown">
+          <button onclick="selectZoomPreset(25)">25%</button>
+          <button onclick="selectZoomPreset(50)">50%</button>
+          <button onclick="selectZoomPreset(75)">75%</button>
+          <button onclick="selectZoomPreset(100)">100%</button>
+          <button onclick="selectZoomPreset(200)">200%</button>
+          <button onclick="selectZoomPreset(300)">300%</button>
+          <button onclick="selectZoomPreset(400)">400%</button>
+          <button onclick="selectZoomPreset(500)">500%</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="right-panel">
+      <div id="mediumPanel">
+        <div class="panel-section">
+          <div class="panel-label">매체 선택</div>
+          <div class="choice-group medium-choice-group" id="mediumChoiceGroup">
+            <button class="medium-btn" onclick="selectMedium('poster',this)">포스터</button>
+            <button class="medium-btn" onclick="selectMedium('ad',this)">광고</button>
+            <button class="medium-btn" onclick="selectMedium('book',this)">책</button>
+          </div>
+        </div>
+        <div class="expand-section" id="expandSection">
+          <div class="panel-label">시대</div>
+          <div class="choice-group era-choice-group" id="eraChoiceGroup">
+            <button class="era-btn" id="eraClassic" onclick="selectEra('classic')">고전</button>
+            <button class="era-btn" id="eraNeue" onclick="selectEra('neue')">신타이포</button>
+          </div>
+          <div class="panel-label" style="margin-top:16px">레이아웃</div>
+          <div class="preset-grid" id="presetGrid"></div>
+        </div>
+        
+        <div class="scale-section" id="mediumScaleSection" style="margin-top:16px">
+          <div id="sliderContainer"><div style="font-size:11px;color:#ccc;letter-spacing:2px;text-transform:uppercase;font-family:'Arial Narrow',Arial,sans-serif">매체를 선택하세요</div></div>
+        </div>
+      </div>
+    </div><!-- right-panel -->
+  </div><!-- lab-body -->
+</div><!-- lab -->
+
+<script src="main.js"></script>
+</body>
+</html>
