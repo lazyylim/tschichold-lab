@@ -1,0 +1,2621 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tschichold Lab</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
+
+/* ── LANDING ── */
+#landing{
+  position:fixed;inset:0;
+  background:#f5f5f0;z-index:10;
+  transition:opacity .7s ease;
+  cursor:none;
+  overflow:hidden;
+}
+#landing.out{opacity:0;pointer-events:none}
+
+.land-bg-classic{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:#f0ede6;
+  font-family:Georgia,'Times New Roman',serif;
+  color:#1a1a1a;
+  clip-path:polygon(0 0, 50% 0, 50% 100%, 0 100%);
+  transition:clip-path 0s;
+  user-select:none;
+}
+.lc-year{position:absolute;top:48px;left:64px;font-size:10px;letter-spacing:6px;color:#bbb;text-transform:uppercase;}
+.lc-title{font-size:clamp(52px,7vw,96px);font-style:italic;line-height:1;color:#1a1a1a;letter-spacing:-1px;margin-bottom:24px;}
+.lc-rule{width:80px;height:1px;background:#bbb;margin:20px 0;}
+.lc-sub{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#888;margin-bottom:0;text-align:center;}
+.lc-body{position:absolute;bottom:80px;left:64px;font-size:11px;font-style:italic;color:#aaa;line-height:1.8;letter-spacing:.5px;}
+
+.land-bg-neue{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+  padding-left:80px;
+  background:#111;
+  font-family:'Arial Narrow',Arial,sans-serif;
+  color:#f5f5f0;
+  clip-path:polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+  transition:clip-path 0s;
+  user-select:none;
+}
+.ln-label{position:absolute;top:48px;left:64px;font-size:9px;letter-spacing:8px;color:#555;text-transform:uppercase;}
+.ln-title{font-size:clamp(64px,9vw,128px);font-weight:900;line-height:.85;letter-spacing:-4px;color:#f5f5f0;text-align:left;}
+.ln-accent{width:0;height:3px;background:#c8001e;margin:28px auto 20px 0;transition:width .4s ease;}
+.ln-sub{font-size:9px;letter-spacing:6px;text-transform:uppercase;color:#c8001e;text-align:left;}
+.ln-grid{position:absolute;inset:0;pointer-events:none;opacity:0.06;}
+
+.land-divider{position:absolute;top:0;bottom:0;width:1px;background:#c8001e;left:50%;transform:translateX(-50%);pointer-events:none;z-index:5;transition:left 0s;}
+
+.land-cursor-custom{position:absolute;width:40px;height:40px;transform:translate(-50%,-50%);pointer-events:none;z-index:20;}
+.lcc-line{position:absolute;background:#c8001e;}
+.lcc-h{top:50%;left:0;right:0;height:1px;transform:translateY(-50%)}
+.lcc-v{left:50%;top:0;bottom:0;width:1px;transform:translateX(-50%)}
+.lcc-dot{position:absolute;top:50%;left:50%;width:5px;height:5px;background:#c8001e;transform:translate(-50%,-50%);}
+
+.land-footer{position:absolute;bottom:40px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:48px;pointer-events:none;z-index:10;}
+.lf-left{font-family:Georgia,serif;font-style:italic;font-size:13px;letter-spacing:3px;color:#888;pointer-events:none;}
+.lf-right{font-family:'Arial Narrow',Arial,sans-serif;font-size:13px;letter-spacing:5px;text-transform:uppercase;color:#555;pointer-events:none;}
+.land-cta{display:inline-block;padding:14px 44px;border:1px solid #c8001e;background:transparent;font-family:'Arial Narrow',Arial,sans-serif;font-size:13px;letter-spacing:6px;text-transform:uppercase;color:#c8001e;cursor:pointer;transition:all .25s;pointer-events:all;position:relative;z-index:11;}
+.land-cta:hover{background:#c8001e;color:#fff;border-color:#c8001e;}
+
+/* ── LAB ── */
+#lab{position:fixed;inset:0;display:none;flex-direction:column;background:#f5f5f0}
+#lab.show{display:flex}
+
+.topbar{height:56px;border-bottom:1px solid #ddd;display:flex;align-items:center;padding:0 24px;flex-shrink:0;background:#f5f5f0;}
+.topbar .logo{font-family:Georgia,serif;font-size:16px;letter-spacing:3px;text-transform:uppercase;color:#111;font-style:italic;cursor:pointer;transition:opacity 0.2s;}
+.topbar .logo:hover{opacity:0.6;}
+.topbar-nav{display:flex;gap:4px;margin-left:auto}
+.tb-btn{padding:8px 20px;font-size:13px;letter-spacing:3px;text-transform:uppercase;border:1px solid transparent;background:transparent;cursor:pointer;color:#888;font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;}
+.tb-btn:hover{color:#111;border-color:#ccc}
+.tb-btn.active{color:#111;border-color:#111}
+
+.lab-body{display:flex;flex:1;overflow:hidden;position:relative;}
+
+.intro-modal{
+  position:fixed;inset:0;z-index:1000;
+  pointer-events:none;
+}
+.intro-modal.hide{display:none}
+.intro-guide{
+  position:absolute;top:60px;left:16px;width:348px;
+  color:#111;
+  background:
+    linear-gradient(180deg,rgba(255,255,252,.98),rgba(241,240,234,.98));
+  border:1px solid rgba(17,17,17,.22);
+  padding:0;
+  font-family:'Arial Narrow',Arial,sans-serif;
+  box-shadow:0 18px 44px rgba(0,0,0,.18),0 1px 0 rgba(255,255,255,.7) inset;
+  pointer-events:auto;
+  backdrop-filter:blur(6px);
+  overflow:hidden;
+}
+.intro-guide::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:3px;background:#c8001e;
+}
+.intro-content{
+  min-height:128px;padding:20px 54px 18px 22px;
+  transition:opacity .18s ease,transform .18s ease;
+}
+.intro-content.step-changing{
+  opacity:0;transform:translateY(6px);
+  transition-duration:.12s;
+}
+.intro-close{
+  position:absolute;top:14px;right:14px;
+  width:28px;height:28px;border:1px solid rgba(17,17,17,.18);
+  background:rgba(255,255,252,.75);color:#555;
+  font-size:17px;line-height:17px;cursor:pointer;
+  font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.intro-close:hover{background:#111;color:#f5f5f0;border-color:#111}
+.intro-copy{
+  margin:0;font-size:13px;line-height:1.55;
+  letter-spacing:1px;color:#57534d;
+}
+.intro-kicker{
+  margin:0 0 11px;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:#8b8780;font-family:'Arial Narrow',Arial,sans-serif;
+}
+.intro-title{
+  margin:0 0 11px;font-family:Georgia,serif;font-size:27px;font-weight:400;
+  line-height:1.15;font-style:italic;letter-spacing:1px;color:#111;white-space:nowrap;
+}
+#templateIntroModal .intro-guide{width:348px;top:auto;bottom:16px;left:16px;}
+#templateIntroModal .intro-title{
+  font-size:25px;
+  white-space:nowrap;
+}
+.intro-progress{
+  display:flex;gap:6px;border-top:1px solid rgba(17,17,17,.1);
+  background:rgba(232,230,224,.72);padding:12px 14px 13px;
+}
+.intro-progress span{
+  flex:1;height:4px;background:#d0cdc5;display:block;
+  transition:background .24s ease,transform .24s ease;
+}
+.intro-progress span.active{background:#c8001e;transform:scaleY(1.45)}
+.intro-progress span.complete{background:#111}
+.guide-target{
+  position:relative;
+  outline:none;
+  box-shadow:
+    inset 0 0 0 1px rgba(200,0,30,.5),
+    0 0 0 2px rgba(200,0,30,.06),
+    0 0 18px rgba(200,0,30,.14);
+  border-radius:2px;
+  transition:box-shadow .2s ease;
+}
+.gallery-card.guide-target,
+.tpl-img-block.guide-target{
+  z-index:20;
+}
+.template-gallery-guide-box{
+  position:fixed;
+  pointer-events:none;
+  z-index:999;
+  border-radius:2px;
+  box-shadow:
+    inset 0 0 0 1px rgba(200,0,30,.5),
+    0 0 0 2px rgba(200,0,30,.06),
+    0 0 18px rgba(200,0,30,.14);
+  transition:opacity .2s ease;
+}
+.guide-open-btn{
+  position:absolute;top:14px;left:14px;z-index:10;
+  padding:8px 14px;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  border:1px solid #111;background:rgba(245,245,240,.94);cursor:pointer;
+  font-family:'Arial Narrow',Arial,sans-serif;color:#111;
+  transition:all .15s;
+}
+.guide-open-btn:hover,.guide-open-btn.on{background:#111;color:#f5f5f0}
+@media (max-width:520px){
+  .intro-guide{top:58px;right:16px;left:16px;width:auto}
+  .intro-content{min-height:124px}
+  .intro-title{font-size:24px}
+  .intro-copy{font-size:12px;letter-spacing:.8px}
+}
+
+/* ── GALLERY SCREEN ── */
+.gallery-screen{
+  flex:1;display:flex;flex-direction:column;overflow:hidden;
+  background:#f5f5f0;
+}
+.gallery-screen.hidden{display:none;}
+
+.gallery-header{
+  padding:28px 40px 20px;
+  border-bottom:1px solid #ddd;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.gallery-title{
+  font-family:Georgia,serif;font-size:13px;font-style:italic;
+  letter-spacing:3px;text-transform:uppercase;color:#888;
+}
+.gallery-tabs{display:flex;gap:0;}
+.gtab{
+  padding:8px 20px;font-size:11px;letter-spacing:4px;text-transform:uppercase;
+  border:1px solid #ddd;background:transparent;cursor:pointer;color:#888;
+  font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;
+  margin-left:-1px;
+}
+.gtab:first-child{margin-left:0;}
+.gtab:hover{color:#111;border-color:#999;z-index:1;position:relative;}
+.gtab.active{background:#111;color:#f5f5f0;border-color:#111;z-index:2;position:relative;}
+
+.gallery-grid{
+  flex:1;overflow-y:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:24px;
+  padding:32px 40px;
+  align-content:start;
+}
+
+/* 갤러리 카드 */
+.gallery-card{
+  cursor:pointer;
+  display:flex;flex-direction:column;
+  transition:transform .18s ease;
+  position:relative;
+}
+.gallery-card:hover{transform:translateY(-3px);}
+.gallery-card:hover .gc-use-btn{opacity:1;transform:translateY(0);}
+
+.gc-thumb{
+  width:100%;
+  aspect-ratio:3/4;
+  background:#fff;
+  border:1px solid #e0deda;
+  position:relative;
+  overflow:hidden;
+  flex-shrink:0;
+}
+.gc-thumb-inner{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  padding:12px;
+  gap:0;
+}
+
+/* 썸네일 내부 블록들 */
+.gct-block{
+  position:absolute;
+  background:rgba(180,180,175,.22);
+  border:1px solid rgba(140,140,135,.35);
+}
+.gct-block.dark{
+  background:#1a1a1a;
+  border-color:#1a1a1a;
+}
+.gct-block.accent{
+  background:#c8001e;
+  border-color:#c8001e;
+}
+
+.gc-use-btn{
+  position:absolute;bottom:12px;left:50%;transform:translateX(-50%) translateY(6px);
+  opacity:0;transition:all .2s ease;
+  padding:8px 20px;
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  border:none;background:#111;color:#f5f5f0;
+  font-family:'Arial Narrow',Arial,sans-serif;cursor:pointer;
+  white-space:nowrap;
+}
+.gc-use-btn:hover{background:#c8001e;}
+
+.gc-info{padding:12px 2px 0;}
+.gc-title{
+  font-family:'Arial Narrow',Arial,sans-serif;
+  font-size:12px;letter-spacing:3px;text-transform:uppercase;
+  color:#111;margin-bottom:6px;
+}
+.gc-badge{
+  display:inline-block;
+  padding:3px 8px;font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  font-family:'Arial Narrow',Arial,sans-serif;
+}
+.gc-badge.classic{background:#f0ede6;color:#888;}
+.gc-badge.neue{background:#111;color:#f5f5f0;}
+
+/* ── EDIT SCREEN ── */
+.edit-screen{
+  flex:1;display:flex;overflow:hidden;
+}
+.edit-screen.hidden{display:none;}
+.media-standalone-screen{
+  flex:1;
+  display:none;
+  min-width:0;
+  min-height:0;
+  background:#e8e6e0;
+  overflow:hidden;
+}
+.media-standalone-frame{
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+  background:#f5f5f0;
+}
+
+/* Canvas area */
+.canvas-wrap{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  background:#e8e6e0;position:relative;overflow:hidden;padding:60px;
+}
+.canvas-area{
+  background:#fff;position:relative;box-shadow:0 2px 20px rgba(0,0,0,.1);overflow:hidden;
+  transform-origin:center center;flex-shrink:0;
+}
+.canvas-area.drop-ready{box-shadow:0 0 0 2px rgba(200,0,30,.45),0 2px 20px rgba(0,0,0,.1)}
+.canvas-area::before{display:none;}
+
+/* 갤러리 복귀 버튼 */
+.gallery-back-btn{
+  position:absolute;top:16px;left:16px;z-index:15;
+  padding:8px 16px;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  border:1px solid #888;background:#f5f5f0;cursor:pointer;color:#888;
+  font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;
+}
+.gallery-back-btn:hover{border-color:#111;color:#111;}
+
+.compare-btn{
+  position:absolute;top:16px;left:16px;z-index:15;
+  padding:8px 16px;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  border:1px solid #111;background:#f5f5f0;cursor:pointer;
+  font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;
+}
+.compare-btn:hover,.compare-btn.on{background:#111;color:#f5f5f0}
+.bottom-right-actions{
+  position:absolute;bottom:16px;right:16px;z-index:15;
+  display:flex;gap:8px;
+}
+.pres-btn, .dl-btn{
+  padding:8px 16px;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  border:1px solid #111;background:#f5f5f0;cursor:pointer;
+  font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;
+}
+.pres-btn:hover, .dl-btn:hover{background:#111;color:#f5f5f0}
+
+/* 줌 박스 */
+.zoom-box{position:absolute;bottom:16px;left:16px;z-index:15;font-family:'Arial Narrow',Arial,sans-serif;user-select:none;}
+.zoom-main{display:flex;align-items:center;border:1px solid #bbb;background:#f5f5f0;height:28px;}
+.zoom-value{display:inline-block;min-width:44px;text-align:center;font-size:11px;letter-spacing:2px;color:#555;padding:0 8px;outline:none;cursor:text;line-height:26px;}
+.zoom-value:focus{background:#fff;color:#111;}
+.zoom-arrows{display:flex;flex-direction:column;border-left:1px solid #bbb;}
+.zoom-arrow-btn{flex:1;width:20px;background:transparent;border:none;font-size:7px;color:#888;cursor:pointer;padding:0;line-height:1;transition:background .12s;display:flex;align-items:center;justify-content:center;}
+.zoom-arrow-btn:hover{background:#e0deda;color:#111;}
+.zoom-arrow-btn:first-child{border-bottom:1px solid #bbb;}
+.zoom-dropdown{display:none;position:absolute;bottom:100%;left:0;border:1px solid #bbb;background:#f5f5f0;min-width:72px;margin-bottom:2px;}
+.zoom-dropdown button{display:block;width:100%;text-align:left;padding:6px 10px;font-size:11px;letter-spacing:2px;font-family:'Arial Narrow',Arial,sans-serif;border:none;background:transparent;cursor:pointer;color:#555;transition:background .12s;}
+.zoom-dropdown button:hover{background:#e0deda;color:#111;}
+
+/* Right panel */
+.right-panel{
+  width:220px;flex-shrink:0;border-left:1px solid #ddd;
+  display:flex;flex-direction:column;padding:24px 0;
+  background:#f5f5f0;overflow-y:auto;
+}
+.panel-section{padding:0 16px 20px;border-bottom:1px solid #eee;margin-bottom:20px}
+.panel-label{font-size:12px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:14px;font-family:'Arial Narrow',Arial,sans-serif}
+
+/* 템플릿 이름 + 뱃지 */
+.template-era-badge{
+  display:inline-block;padding:3px 8px;
+  font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  font-family:'Arial Narrow',Arial,sans-serif;margin-top:4px;
+}
+.template-era-badge.classic{background:#f0ede6;color:#888;}
+.template-era-badge.neue{background:#111;color:#f5f5f0;}
+
+.medium-btn{display:block;width:100%;text-align:left;padding:10px 14px;font-size:13px;letter-spacing:3px;text-transform:uppercase;border:1px solid #ddd;background:#f5f5f0;color:#555;cursor:pointer;margin-bottom:6px;font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;}
+.medium-btn:hover{border-color:#999;color:#111}
+.medium-btn.active{background:#111;color:#f5f5f0;border-color:#111}
+
+.expand-section{display:none;padding:0 16px;margin-bottom:20px}
+.expand-section.open{display:block}
+.era-btn{display:inline-block;padding:8px 14px;font-size:11px;letter-spacing:3px;text-transform:uppercase;border:1px solid #ddd;background:transparent;color:#888;cursor:pointer;margin:4px 4px 4px 0;font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;}
+.era-btn:hover{border-color:#999;color:#111}
+.era-btn.active{background:#c8001e;color:#f5f5f0;border-color:#c8001e}
+
+.preset-grid{margin-top:14px;display:block}
+.preset-btn{display:block;width:100%;text-align:left;padding:10px 14px;font-size:13px;letter-spacing:3px;text-transform:uppercase;border:1px solid #ddd;background:#f5f5f0;color:#555;cursor:pointer;margin-bottom:6px;font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;}
+.preset-btn:hover{border-color:#999;color:#111}
+.preset-btn.active{background:#111;color:#f5f5f0;border-color:#111}
+
+/* Custom Props */
+.prop-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.prop-row label{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#888;font-family:'Arial Narrow',Arial,sans-serif;}
+.prop-row select{width:115px;padding:6px;font-size:12px;font-family:'Arial Narrow',Arial,sans-serif;border:1px solid #ddd;background:#fff;outline:none;}
+.align-btns{display:flex;gap:4px;}
+.align-btns button{padding:6px 12px;font-size:12px;border:1px solid #ddd;background:#fff;cursor:pointer;font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;}
+.align-btns button.active{background:#111;color:#fff;border-color:#111;}
+
+/* Sliders */
+.scale-section{padding:0 16px;margin-top:12px}
+.scale-row{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.scale-row-top{display:flex;align-items:center;justify-content:space-between}
+.scale-row label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#888;font-family:'Arial Narrow',Arial,sans-serif}
+.scale-val{font-size:12px;color:#555;font-family:'Arial Narrow',Arial,sans-serif}
+.scale-row input[type=range]{width:100%;height:2px;accent-color:#111;cursor:pointer;}
+
+/* Box palette */
+.box-palette-hint{font-size:11px;color:#ccc;letter-spacing:2px;text-transform:uppercase;font-family:'Arial Narrow',Arial,sans-serif;margin-bottom:10px;}
+.box-palette-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.box-palette-item{min-height:70px;border:1px solid #ddd;background:#f5f5f0;color:#555;cursor:grab;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px;transition:all .15s;}
+.box-palette-item:hover{border-color:#999;background:#fff;color:#111;transform:translateY(-1px);}
+.box-palette-item:active{cursor:grabbing}
+.box-palette-shape{background:rgba(120,120,120,.3);border:1px solid rgba(120,120,120,.6);flex-shrink:0;}
+.box-palette-item span{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:'Arial Narrow',Arial,sans-serif;white-space:nowrap;}
+/* 이미 종이 위로 올린 박스 표시: 사각형을 35% 투명도로 칠하고 항목을 흐리게 */
+.box-palette-item.used{
+  opacity:.6;border-color:#bbb;
+}
+.box-palette-item.used .box-palette-shape{
+  background:rgba(17,17,17,.35);border:none;
+}
+
+
+/* Upload */
+.upload-area{border:1px dashed #bbb;padding:16px 10px;text-align:center;cursor:pointer;margin-bottom:10px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#888;transition:all .2s;font-family:'Arial Narrow',Arial,sans-serif;background:rgba(0,0,0,0.02);}
+.upload-area:hover{border-color:#111;color:#111;background:rgba(0,0,0,0.05);}
+#file-input{display:none}
+
+/* Blocks */
+.block{position:absolute;cursor:grab;user-select:none;z-index:5;transition:box-shadow .1s}
+.block:hover{box-shadow:0 0 0 1px rgba(200,0,30,.4)}
+.block.dragging{cursor:grabbing;box-shadow:0 0 0 1px #c8001e !important;z-index:20}
+.block.selected{box-shadow:0 0 0 1px #111;z-index:18;}
+
+
+.img-block{background:#ddd;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.img-block img{width:100%;height:100%;object-fit:cover;pointer-events:none;}
+.img-block .placeholder{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#bbb;font-family:'Arial Narrow',Arial,sans-serif}
+.text-block{padding:4px}
+.text-block div{outline:none;width:100%;height:100%;}
+.original-box-block{
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(120,120,120,.25);color:#555;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  font-family:'Arial Narrow',Arial,sans-serif;overflow:hidden;
+  animation:box-pop .18s ease-out;
+}
+.original-box-block:hover,.original-box-block.dragging{
+  background:rgba(120,120,120,.38);
+}
+/* 종이에 올린 박스는 외곽선(선택/호버/드래그 테두리) 없이 표시 */
+.original-box-block,
+.original-box-block:hover,
+.original-box-block.selected,
+.original-box-block.dragging{
+  box-shadow:none !important;
+}
+@keyframes box-pop{from{transform:scale(.88)}to{transform:scale(1)}}
+
+/* 템플릿 모드 텍스트/이미지 블록 편집 스타일 */
+.tpl-text-block{
+  position:absolute;cursor:grab;user-select:none;z-index:5;
+  padding:4px;transition:box-shadow .1s;
+}
+.tpl-text-block:hover{box-shadow:0 0 0 1px rgba(200,0,30,.35);}
+.tpl-text-block.selected{box-shadow:0 0 0 1px #111;z-index:18;}
+.tpl-text-block.dragging{cursor:grabbing;z-index:20;}
+.tpl-text-block [contenteditable]{outline:none;cursor:text;}
+
+.tpl-img-block{
+  position:absolute;cursor:grab;user-select:none;z-index:5;
+  overflow:hidden;transition:box-shadow .1s;
+  background:#e0deda;display:flex;align-items:center;justify-content:center;
+}
+.tpl-img-block:hover{box-shadow:0 0 0 1px rgba(200,0,30,.35);}
+.tpl-img-block.selected{box-shadow:0 0 0 1px #111;z-index:18;}
+.tpl-img-block.dragging{cursor:grabbing;z-index:20;}
+.tpl-img-block img{width:100%;height:100%;object-fit:cover;pointer-events:none;}
+.tpl-img-placeholder{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#bbb;font-family:'Arial Narrow',Arial,sans-serif;text-align:center;padding:8px;}
+.tpl-img-block .dbl-hint{
+  position:absolute;bottom:6px;right:6px;
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  font-family:'Arial Narrow',Arial,sans-serif;
+  color:rgba(255,255,255,.7);background:rgba(0,0,0,.35);
+  padding:3px 6px;pointer-events:none;opacity:0;
+  transition:opacity .15s;
+}
+.tpl-img-block:hover .dbl-hint{opacity:1;}
+
+/* 우측 패널: 선택 블록 속성 */
+.block-props{padding:0 16px;margin-top:16px;border-top:1px solid #eee;padding-top:16px;}
+.bp-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.bp-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#888;font-family:'Arial Narrow',Arial,sans-serif;}
+.bp-val{font-size:12px;color:#555;font-family:'Arial Narrow',Arial,sans-serif;}
+.bp-input{width:80px;padding:4px 6px;font-size:12px;font-family:'Arial Narrow',Arial,sans-serif;border:1px solid #ddd;background:#fff;outline:none;}
+.bp-select{width:130px;padding:5px;font-size:11px;font-family:'Arial Narrow',Arial,sans-serif;border:1px solid #ddd;background:#fff;outline:none;}
+.bp-align{display:flex;gap:3px;}
+.bp-align button{padding:5px 10px;font-size:11px;border:1px solid #ddd;background:#fff;cursor:pointer;font-family:'Arial Narrow',Arial,sans-serif;transition:all .12s;}
+.bp-align button.active{background:#111;color:#fff;border-color:#111;}
+.bp-slider{width:100%;height:2px;accent-color:#111;cursor:pointer;margin-top:4px;}
+.bp-img-replace{display:block;width:100%;text-align:center;padding:8px;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-family:'Arial Narrow',Arial,sans-serif;border:1px solid #ddd;background:#fff;cursor:pointer;color:#555;transition:all .15s;margin-bottom:8px;}
+.bp-img-replace:hover{border-color:#111;color:#111;}
+.bp-delete{display:block;width:100%;text-align:center;padding:8px;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-family:'Arial Narrow',Arial,sans-serif;border:1px solid #ffaaaa;background:#fff;cursor:pointer;color:#c8001e;transition:all .15s;}
+.bp-delete:hover{background:#c8001e;color:#fff;border-color:#c8001e;}
+
+/* Grid lines */
+.layout-one-grid{position:absolute;pointer-events:none;z-index:2;border:none;}
+.layout-one-grid-line{position:absolute;background:rgba(120,120,120,.45);}
+.layout-one-grid-line.vertical{width:1px;}
+.layout-one-grid-line.horizontal{height:1px;}
+
+/* Overlay */
+.overlay-master{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3;opacity:0;transition:opacity 0.5s ease;object-fit:contain;}
+.overlay-master.visible{opacity:1}
+
+/* 숨겨진 파일 입력 */
+#tpl-file-input{display:none;}
+
+/* ── 실존 원본 도판 정보 스타일 ── */
+.original-work-preview-wrap {
+  width: 100%;
+  height: 140px;
+  background: #eae8e2;
+  border: 1px solid #ddd;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+}
+.original-work-preview-placeholder {
+  text-align: center;
+  font-family: 'Arial Narrow', Arial, sans-serif;
+  font-size: 11px;
+  color: #888;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  padding: 12px;
+}
+.original-work-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.original-work-meta {
+  font-family: Georgia, serif;
+}
+.original-work-rules {
+  font-family: 'Arial Narrow', Arial, sans-serif;
+  border-radius: 2px;
+}
+.original-work-rules ul {
+  padding-left: 14px;
+  margin: 0;
+}
+.original-work-rules li {
+  margin-bottom: 6px;
+}
+.original-work-rules li:last-child {
+  margin-bottom: 0;
+}
+
+/* 캔버스 오리지널 반투명 오버레이 */
+.canvas-image-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2; /* 텍스트 블록(5) 하위, 눈금 가이드 상위 */
+  opacity: 0.25;
+  object-fit: contain;
+  transition: opacity 0.2s ease;
+  display: none;
+}
+
+/* ── 프레젠테이션 모드 스타일 ── */
+.exit-pres-btn {
+  display: none;
+}
+
+#lab.presentation-mode .topbar,
+#lab.presentation-mode .right-panel,
+#lab.presentation-mode .gallery-back-btn,
+#lab.presentation-mode .compare-btn,
+#lab.presentation-mode .zoom-box,
+#lab.presentation-mode #presBtn,
+#lab.presentation-mode .dl-btn {
+  display: none !important;
+}
+
+#lab.presentation-mode .canvas-wrap {
+  padding: 0 !important;
+  background: #1e1e1a !important; /* 몰입형 무채색 다크그레이 */
+}
+
+/* 프레젠테이션 진입 시 대지 내부 블록 클릭/드래그 차단 */
+#lab.presentation-mode .tpl-text-block,
+#lab.presentation-mode .tpl-img-block,
+#lab.presentation-mode .block,
+#lab.presentation-mode .original-box-block,
+#lab.presentation-mode .layout-one-grid {
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+#lab.presentation-mode .tpl-text-block [contenteditable] {
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+/* 유리 질감의 플로팅 종료 버튼 */
+#lab.presentation-mode .exit-pres-btn {
+  display: block !important;
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 9999;
+  padding: 10px 20px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-family: 'Arial Narrow', Arial, sans-serif;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+}
+
+#lab.presentation-mode .exit-pres-btn:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: #111;
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 25px rgba(255, 255, 255, 0.2);
+}
+
+/* ── 모드 선택 화면 스타일 (Mode Selection Screen) ── */
+.mode-select-screen {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background: #f5f5f0; /* 얀 치홀트 종이 질감 */
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+.ms-intro {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  box-sizing: border-box;
+  background: #f5f5f0;
+}
+
+.ms-intro-inner {
+  max-width: 760px;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.ms-intro-quote {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: clamp(18px, 2.8vw, 28px);
+  line-height: 1.45;
+  color: #111;
+  margin: 0 0 24px 0;
+  font-weight: normal;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+}
+
+.ms-intro-divider {
+  width: 40px;
+  height: 1px;
+  background: #c8001e;
+  margin: 0 auto 28px;
+}
+
+.ms-intro-paragraphs {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #555;
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: justify;
+  text-justify: inter-character;
+}
+
+.ms-intro-paragraphs p {
+  margin: 0 0 16px 0;
+}
+
+.ms-intro-paragraphs p:last-child {
+  margin: 0;
+}
+
+.ms-intro-paragraphs strong {
+  font-family: 'Arial Narrow', Arial, sans-serif;
+  font-weight: 900;
+  color: #111;
+  font-size: 14.5px;
+  letter-spacing: 0.5px;
+}
+
+.ms-scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.3s ease;
+}
+
+.ms-scroll-indicator:hover {
+  opacity: 0.8;
+}
+
+.ms-scroll-arrow {
+  font-size: 20px;
+  color: #c8001e;
+  font-weight: bold;
+  line-height: 1;
+  animation: bounceArrow 2s infinite ease-in-out;
+}
+
+.ms-scroll-text {
+  font-family: 'Arial Narrow', Arial, sans-serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #888;
+}
+
+@keyframes bounceArrow {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+
+.ms-cards-wrap {
+  width: 100%;
+  min-height: calc(100vh - 56px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  box-sizing: border-box;
+  background: #f5f5f0;
+}
+
+.ms-content {
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.ms-header {
+  margin-bottom: 50px;
+}
+
+.ms-sup {
+  font-family: 'Arial Narrow', Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+.ms-title {
+  font-family: 'Georgia', serif;
+  font-weight: normal;
+  font-size: 32px;
+  color: #111;
+  margin: 0 0 24px 0;
+  letter-spacing: -0.5px;
+}
+
+.ms-rule {
+  width: 40px;
+  height: 1px;
+  background: #c8001e; /* 얀 치홀트 강렬한 레드 */
+  margin: 0 auto;
+}
+
+.ms-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  width: 100%;
+}
+
+.ms-card {
+  background: #fdfdfb;
+  border: 1px solid #dcdcd4;
+  padding: 40px 32px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px;
+  box-sizing: border-box;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.ms-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 1px solid #c8001e;
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.ms-card:hover {
+  transform: translateY(-4px);
+  border-color: #c8001e;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+}
+
+.ms-card:hover::after {
+  opacity: 1;
+}
+
+.msc-tag {
+  font-family: 'Arial Narrow', Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #c8001e;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+.msc-title {
+  font-family: 'Georgia', serif;
+  font-size: 22px;
+  font-weight: normal;
+  color: #111;
+  margin: 0 0 16px 0;
+}
+
+.msc-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #666;
+  margin: 0 0 32px 0;
+  flex-grow: 1;
+}
+
+.msc-btn {
+  font-family: 'Arial Narrow', Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #111;
+  font-weight: bold;
+  transition: color 0.2s ease;
+  margin-top: auto;
+}
+
+.ms-card:hover .msc-btn {
+  color: #c8001e;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .ms-cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .ms-card {
+    min-height: auto;
+    padding: 30px 24px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div id="landing">
+<div class="land-bg-classic" id="landBgClassic">
+    <div class="lc-title" style="font-size: clamp(48px, 6vw, 86px);">Die Neue Typographie</div>
+    <div class="lc-rule"></div>
+    <div class="lc-sub" style="letter-spacing: 4px; font-size: 14px; margin-top: 10px;">Jan Tschichold, 1928</div>
+  </div>
+<div class="land-bg-neue" id="landBgNeue">
+    <div class="ln-label">1928</div>
+    <div class="ln-title" style="line-height: 0.85;">DIE NEUE<br>TYPO<br>GRAPHIE</div>
+    <div class="ln-accent" id="lnAccent"></div>
+    <div class="ln-sub" style="letter-spacing: 5px; font-weight: bold; margin-top: 20px;">JAN TSCHICHOLD</div>
+    <div class="ln-grid" id="lnGrid"></div>
+  </div>
+  <div class="land-cursor-custom" id="landCursorCustom">
+    <div class="lcc-line lcc-h"></div>
+    <div class="lcc-line lcc-v"></div>
+    <div class="lcc-dot"></div>
+  </div>
+  <div class="land-divider" id="landDivider"></div>
+  <div class="land-footer">
+    <span class="lf-right">Function · 기능과 질서</span>
+    <button class="land-cta" onclick="enterLab()">실험실 입장 →</button>
+    <span class="lf-left">Tradition · 전통과 조화</span>
+  </div>
+</div>
+
+<div id="lab">
+  <div class="topbar">
+    <span class="logo" onclick="location.hash='#landing'" title="처음 화면으로 돌아가기">Tschichold Lab</span>
+    <div class="topbar-nav">
+      <button class="tb-btn" id="btnIntro" onclick="location.hash='#select-mode'">실험실 안내</button>
+      <button class="tb-btn" id="btnMedium" onclick="openMediaMode()">매체 모드</button>
+      <button class="tb-btn" id="btnTemplate" onclick="location.hash='#template'">템플릿 모드</button>
+    </div>
+  </div>
+  <div class="lab-body">
+    <button class="guide-open-btn" id="templateGuideOpenBtn" type="button" onclick="openTemplateGuide()" style="display:none">가이드</button>
+
+    <!-- ── 매체 모드 화면: 완성된 main 매체 앱을 같은 파일 안에 내장 ── -->
+    <div id="mediaStandaloneScreen" class="media-standalone-screen" style="display:none">
+      <iframe id="mediaStandaloneFrame" class="media-standalone-frame" src="media.html" title="매체 모드"></iframe>
+    </div>
+
+    <!-- ── 모드 선택 화면 (진입 직후 대기 상태) ── -->
+    <div id="modeSelectScreen" class="mode-select-screen" style="display:none">
+      <!-- 얀 치홀트의 사상적 변화 인트로 섹션 -->
+      <div class="ms-intro">
+        <div class="ms-intro-inner">
+          <blockquote class="ms-intro-quote">"타이포그래피는 자기표현의 수단이 아니라, 질서의 규율이다."</blockquote>
+          <div class="ms-intro-divider"></div>
+          <div class="ms-intro-paragraphs">
+            <p>1928년, 얀 치홀트는 《신타이포그래피》를 통해 철저한 모듈러 그리드와 비대칭 구도, 그리고 산세리프 서체를 활용하는 급진적인 조판 시스템을 선언했습니다. 이는 목적에 충실한 '기능주의'의 정점이었으나, 동시에 엄격하고 기계적인 규칙이기도 했습니다.</p>
+            <p>그러나 스위스로 망명한 그는 자신의 과거 이론이 지닌 경직성을 성찰하게 됩니다. 이후 철저한 수학적 비례(황금비)와 중앙 축 대칭, 눈이 편안한 고전적 서체를 통해 타이포그래피의 '고전적 질서'를 화려하게 부활시킵니다.</p>
+            <p><strong>Tschichold Lab</strong>은 한 디자이너가 겪은 이 극적인 사상적 전환을 모니터 위로 불러옵니다. 비대칭의 역동적인 긴장감부터 고전주의의 우아한 안정감까지, 시대를 가로지르는 조판의 규칙을 직접 실험해 보세요.</p>
+          </div>
+        </div>
+        <div class="ms-scroll-indicator" onclick="document.querySelector('.ms-cards-wrap').scrollIntoView({ behavior: 'smooth' })">
+          <span class="ms-scroll-arrow">↓</span>
+          <span class="ms-scroll-text">Scroll to Explore</span>
+        </div>
+      </div>
+
+      <!-- 선택 카드 영역 -->
+      <div class="ms-cards-wrap">
+        <div class="ms-content">
+          <div class="ms-header">
+            <div class="ms-sup">Jan Tschichold Lab</div>
+            <h1 class="ms-title">실습 모드를 선택하세요</h1>
+            <div class="ms-rule"></div>
+          </div>
+          <div class="ms-cards">
+            <!-- 매체 모드 카드 -->
+            <div class="ms-card" onclick="openMediaMode()">
+              <div class="msc-tag">Grid & Ratio</div>
+              <h2 class="msc-title">매체 모드</h2>
+              <p class="msc-desc">얀 치홀트의 역사적 정렬 시스템에 맞춰 포스터, 광고, 책 요소들을 직접 드래그하여 배치하고 원본과 오차를 대조해 봅니다.</p>
+              <span class="msc-btn">진입하기 →</span>
+            </div>
+            <!-- 템플릿 모드 카드 -->
+            <div class="ms-card" onclick="location.hash='#template'">
+              <div class="msc-tag">Typography Composition</div>
+              <h2 class="msc-title">템플릿 모드</h2>
+              <p class="msc-desc">얀 치홀트의 실제 작업물들을 구현한 템플릿 카드 갤러리에서 마음에 드는 디자인을 이미지와 골라 서체, 자간, 굵기를 직접 변경하고 변주해 봅니다.</p>
+              <span class="msc-btn">진입하기 →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 갤러리 화면 (매체 모드 / 갤러리 단계) ── -->
+    <div id="galleryScreen" class="gallery-screen">
+      <!-- 필터 탭 -->
+      <div class="gallery-header">
+        <div class="gallery-title" aria-hidden="true"></div>
+        <div class="gallery-tabs">
+          <button class="gtab active" id="gtabAll"      onclick="setGalleryFilter('all')">전체</button>
+          <button class="gtab"        id="gtabNeue"     onclick="setGalleryFilter('neue')">신타이포</button>
+          <button class="gtab"        id="gtabClassic"  onclick="setGalleryFilter('classic')">고전</button>
+        </div>
+      </div>
+      <!-- 카드 그리드 -->
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+
+    <!-- ── 편집 화면 (템플릿 선택 후) ── -->
+    <div id="editScreen" class="edit-screen" style="display:none">
+      <div class="canvas-wrap" id="canvasWrap">
+        <button class="gallery-back-btn" id="galleryBackBtn" onclick="location.hash='#template'">← 갤러리로</button>
+        <button class="compare-btn" id="compareBtn" onclick="toggleCompare()">원본 비교</button>
+        <div class="canvas-area" id="canvas" style="width:420px;height:560px"></div>
+        <div class="bottom-right-actions">
+          <button class="pres-btn" id="presBtn" onclick="enterPresentationMode()" title="프레젠테이션 모드 (P)">프레젠테이션 ⛶</button>
+          <button class="dl-btn" onclick="downloadCanvas()">저장 ↓</button>
+        </div>
+        <button class="exit-pres-btn" id="exitPresBtn" onclick="exitPresentationMode()" title="프레젠테이션 종료 (Esc)">✕ 종료</button>
+        <!-- 줌 박스 -->
+        <div class="zoom-box" id="zoomBox">
+          <div class="zoom-main">
+            <span class="zoom-value" id="zoomValue" contenteditable="false"
+              onblur="applyZoomInput()"
+              onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur();}">100%</span>
+            <div class="zoom-arrows">
+              <button class="zoom-arrow-btn" onclick="zoomStep('up')" title="확대">▲</button>
+              <button class="zoom-arrow-btn" onclick="zoomStep('down')" title="축소">▼</button>
+            </div>
+          </div>
+          <div class="zoom-dropdown" id="zoomDropdown">
+            <button onclick="selectZoomPreset(25)">25%</button>
+            <button onclick="selectZoomPreset(50)">50%</button>
+            <button onclick="selectZoomPreset(75)">75%</button>
+            <button onclick="selectZoomPreset(100)">100%</button>
+            <button onclick="selectZoomPreset(200)">200%</button>
+            <button onclick="selectZoomPreset(300)">300%</button>
+            <button onclick="selectZoomPreset(400)">400%</button>
+            <button onclick="selectZoomPreset(500)">500%</button>
+          </div>
+        </div>
+      </div>
+      <!-- 우측 패널 -->
+      <div class="right-panel" id="editRightPanel">
+        <!-- ── 템플릿 모드 전용 패널 ── -->
+        <div id="templatePanel">
+          <div class="panel-section">
+            <div class="panel-label" id="templateNameLabel">템플릿</div>
+            <div class="template-era-badge" id="templateEraBadge"></div>
+          </div>
+
+          <!-- 실존 원본 도판 정보 섹션 추가 -->
+          <div class="panel-section" id="originalWorkSection" style="border-top: 1px solid #eee; padding-top: 16px; display: none;">
+            <div class="panel-label">실존 원본 정보</div>
+            <div class="original-work-preview-wrap">
+              <div class="original-work-preview-placeholder" id="originalWorkPreviewPlaceholder">
+                이미지 파일 준비 중<br><span style="font-size: 9px; opacity: 0.6; display: block; margin-top: 4px;" id="placeholderFilename">classic-1.jpg</span>
+              </div>
+              <img class="original-work-preview-img" id="originalWorkPreviewImg" style="display:none;" onerror="showOverlayPlaceholder(true)" onload="showOverlayPlaceholder(false)">
+            </div>
+            <div class="original-work-meta" style="margin-top: 10px;">
+              <div class="ow-title" id="owTitle" style="font-size: 12px; font-weight: bold; color: #111; line-height: 1.3;"></div>
+              <div class="ow-year" id="owYear" style="font-size: 11px; color: #666; margin-top: 2px;"></div>
+            </div>
+            <div class="original-work-rules" id="originalWorkRules" style="margin-top: 12px; font-size: 11px; color: #555; line-height: 1.5; max-height: 120px; overflow-y: auto; background: rgba(0,0,0,0.02); padding: 8px; border: 1px solid #eee;">
+            </div>
+            
+            <div class="overlay-control-row" style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px;">
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: bold; color: #888; cursor: pointer; text-transform: uppercase; font-family: 'Arial Narrow', sans-serif; user-select: none;">
+                <input type="checkbox" id="chkCanvasOverlay" onchange="toggleCanvasOverlay(this.checked)" style="accent-color: #111; cursor: pointer;"> 캔버스에 겹쳐보기
+              </label>
+              <div id="overlayOpacityControl" style="display: none; align-items: center; justify-content: space-between; gap: 8px;">
+                <input type="range" id="rngOverlayOpacity" min="5" max="95" value="25" oninput="updateCanvasOverlayOpacity(this.value)" style="flex: 1; height: 2px; accent-color: #111; cursor: pointer;">
+                <span id="lblOverlayOpacity" style="font-size: 11px; font-family: 'Arial Narrow', sans-serif; color: #555; min-width: 24px; text-align: right;">25%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="scale-section" style="margin-top:16px">
+            <div class="panel-label">속성 편집</div>
+            <div id="tplPropertiesContainer">
+              <div style="font-size:11px;color:#ccc;letter-spacing:2px;text-transform:uppercase;font-family:'Arial Narrow',Arial,sans-serif;padding:0 16px">블록을 클릭해 속성 편집</div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div><!-- editScreen -->
+
+  </div><!-- lab-body -->
+</div><!-- lab -->
+
+<div class="intro-modal hide" id="templateIntroModal" role="region" aria-labelledby="templateIntroTitle">
+  <div class="intro-guide" aria-live="polite">
+    <button class="intro-close" id="templateIntroClose" type="button" aria-label="가이드 닫기">×</button>
+    <div class="intro-content" id="templateIntroContent">
+      <div class="intro-kicker" id="templateIntroKicker">Step 1 / 2</div>
+      <h2 class="intro-title" id="templateIntroTitle">템플릿 선택</h2>
+      <p class="intro-copy" id="templateIntroCopy">갤러리에서 예시 템플릿을 하나 고르세요.</p>
+    </div>
+    <div class="intro-progress" aria-hidden="true">
+      <span data-template-guide-dot="gallery"></span>
+      <span data-template-guide-dot="image"></span>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* === 첫 화면 인터랙션 === */
+const landBgClassic = document.getElementById('landBgClassic');
+const landBgNeue    = document.getElementById('landBgNeue');
+const landDivider   = document.getElementById('landDivider');
+const landCursor    = document.getElementById('landCursorCustom');
+const lnAccent      = document.getElementById('lnAccent');
+
+let landPct = 50, targetPct = 50;
+let landCurX = window.innerWidth / 2, landCurY = window.innerHeight / 2;
+let targetCurX = landCurX, targetCurY = landCurY;
+
+(function buildGrid(){
+  const g = document.getElementById('lnGrid');
+  if(!g) return;
+  const cols = 8, rows = 6;
+  let svg = `<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">`;
+  for(let i=1;i<cols;i++){
+    const x = (i/cols*100).toFixed(2)+'%';
+    svg += `<line x1="${x}" y1="0" x2="${x}" y2="100%" stroke="#fff" stroke-width="1"/>`;
+  }
+  for(let j=1;j<rows;j++){
+    const y = (j/rows*100).toFixed(2)+'%';
+    svg += `<line x1="0" y1="${y}" x2="100%" y2="${y}" stroke="#fff" stroke-width="1"/>`;
+  }
+  svg += '</svg>';
+  g.innerHTML = svg;
+})();
+
+function clamp(num,min,max){ return Math.max(min,Math.min(max,num)); }
+
+document.getElementById('landing').addEventListener('pointermove', e => {
+  const pct = clamp((e.clientX / window.innerWidth) * 100, 0, 100);
+  targetPct = pct;
+  targetCurX = e.clientX;
+  targetCurY = e.clientY;
+});
+
+function renderLanding(){
+  landPct   += (targetPct  - landPct)   * 0.1;
+  landCurX  += (targetCurX - landCurX)  * 0.12;
+  landCurY  += (targetCurY - landCurY)  * 0.12;
+  const pct = landPct.toFixed(3);
+  landBgClassic.style.clipPath = `polygon(${pct}% 0,100% 0,100% 100%,${pct}% 100%)`;
+  landBgNeue.style.clipPath    = `polygon(0 0,${pct}% 0,${pct}% 100%,0 100%)`;
+  landDivider.style.left = pct + '%';
+  landCursor.style.left = landCurX + 'px';
+  landCursor.style.top  = landCurY + 'px';
+  const neueRatio = clamp(landPct / 100, 0, 1);
+  lnAccent.style.width = (neueRatio * 120) + 'px';
+  const classicRatio = clamp((100 - landPct) / 100, 0, 1);
+  landBgClassic.style.opacity = 0.6 + classicRatio * 0.4;
+  landBgNeue.style.opacity    = 0.6 + neueRatio * 0.4;
+  requestAnimationFrame(renderLanding);
+}
+renderLanding();
+
+let isRouting = false;
+
+function handleRouting() {
+  if (isRouting) return;
+  isRouting = true;
+
+  const hash = window.location.hash || '#landing';
+  const landing = document.getElementById('landing');
+  const lab = document.getElementById('lab');
+  const modeSelectScreen = document.getElementById('modeSelectScreen');
+  const galleryScreen = document.getElementById('galleryScreen');
+  const editScreen = document.getElementById('editScreen');
+  const mediaStandaloneScreen = document.getElementById('mediaStandaloneScreen');
+
+  if (hash === '#landing') {
+    closeTemplateGuide();
+    if (lab) lab.classList.remove('show');
+    if (modeSelectScreen) modeSelectScreen.style.display = 'none';
+    if (mediaStandaloneScreen) mediaStandaloneScreen.style.display = 'none';
+    if (landing) {
+      landing.style.display = '';
+      setTimeout(() => {
+        landing.classList.remove('out');
+      }, 50);
+    }
+  } else {
+    if (landing) {
+      landing.classList.add('out');
+      landing.style.display = 'none';
+    }
+    if (lab) lab.classList.add('show');
+
+    if (hash === '#select-mode') {
+      closeTemplateGuide();
+      setMode('intro'); // 탑바 탭 활성화 (실험실 안내)
+      if (modeSelectScreen) {
+        modeSelectScreen.style.display = 'block';
+        modeSelectScreen.scrollTop = 0;
+      }
+      if (galleryScreen) galleryScreen.style.display = 'none';
+      if (editScreen) editScreen.style.display = 'none';
+      if (mediaStandaloneScreen) mediaStandaloneScreen.style.display = 'none';
+    } else {
+      if (modeSelectScreen) modeSelectScreen.style.display = 'none';
+
+      if (hash === '#medium') {
+        closeTemplateGuide();
+        showEmbeddedMediaMode();
+      } else if (hash === '#template') {
+        if (mediaStandaloneScreen) mediaStandaloneScreen.style.display = 'none';
+        setModeAndResetZoom('template');
+        
+        // 에디터에서 뒤로가기 시 캔버스 및 오버레이 정리
+        const oldOv = document.getElementById('canvasImageOverlay');
+        if (oldOv) oldOv.remove();
+        canvas.innerHTML = '';
+        tplBlocks = [];
+        activeTplBlock = null;
+        clearTplPanel();
+      } else if (hash.startsWith('#edit/')) {
+        if (mediaStandaloneScreen) mediaStandaloneScreen.style.display = 'none';
+        const templateId = hash.substring(6);
+        setModeAndResetZoom('template');
+        openTemplateDirect(templateId);
+      }
+    }
+  }
+  isRouting = false;
+}
+
+function initRouter() {
+  const hash = window.location.hash;
+  if (!hash) {
+    let labEntered = '0';
+    try {
+      labEntered = sessionStorage.getItem('labEntered') || '0';
+    } catch (e) {
+      console.warn("sessionStorage is not accessible:", e);
+    }
+    if (labEntered === '1') {
+      window.location.hash = '#select-mode';
+    } else {
+      window.location.hash = '#landing';
+    }
+  } else {
+    handleRouting();
+  }
+}
+
+window.addEventListener('hashchange', handleRouting);
+
+function openMediaMode(){
+  window.location.hash = '#medium';
+}
+
+function showEmbeddedMediaMode(){
+  const btnIntro = document.getElementById('btnIntro');
+  const btnMedium = document.getElementById('btnMedium');
+  const btnTemplate = document.getElementById('btnTemplate');
+  const templateGuideOpenBtn = document.getElementById('templateGuideOpenBtn');
+  if(btnIntro) btnIntro.classList.remove('active');
+  if(btnMedium) btnMedium.classList.add('active');
+  if(btnTemplate) btnTemplate.classList.remove('active');
+  if(templateGuideOpenBtn) templateGuideOpenBtn.style.display = 'none';
+  const templateGuideBox = document.getElementById('templateGalleryGuideBox');
+  if(templateGuideBox) templateGuideBox.remove();
+
+  const modeSelectScreen = document.getElementById('modeSelectScreen');
+  const galleryScreen = document.getElementById('galleryScreen');
+  const editScreen = document.getElementById('editScreen');
+  const mediaStandaloneScreen = document.getElementById('mediaStandaloneScreen');
+  if(modeSelectScreen) modeSelectScreen.style.display = 'none';
+  if(galleryScreen) galleryScreen.style.display = 'none';
+  if(editScreen) editScreen.style.display = 'none';
+  if(mediaStandaloneScreen) mediaStandaloneScreen.style.display = 'flex';
+}
+
+function enterLab(){
+  try {
+    sessionStorage.setItem('labEntered','1');
+  } catch (e) {
+    console.warn("sessionStorage is not accessible:", e);
+  }
+  document.getElementById('landing').classList.add('out');
+  setTimeout(()=>{
+    window.location.hash = '#select-mode';
+  },700);
+}
+
+function goHome(){
+  try {
+    sessionStorage.removeItem('labEntered');
+  } catch (e) {
+    console.warn("sessionStorage is not accessible:", e);
+  }
+  window.location.hash = '#landing';
+}
+
+/* === LAB 핵심 로직 === */
+const GRID=42;
+const canvas=document.getElementById('canvas');
+let mode='medium', medium=null, era=null, preset=null;
+let blocks=[];
+let dragEl=null,dragOx=0,dragOy=0;
+let compareOn=false;
+let activeBlock=null;
+let currentScale=1;
+
+// 좌표계: canvas 420×560 기준 비율. PDF→canvas letterbox(x+12.020px) 완전 반영
+const ORIGINAL_BOXES=[
+  {x:0.08104582, y:0.09862692, w:0.50279095, h:0.03179753},
+  {x:0.08104582, y:0.13918203, w:0.50279095, h:0.03538232},
+  {x:0.08104742, y:0.18332209, w:0.50906094, h:0.06732115},
+  {x:0.08104742, y:0.28235522, w:0.50906094, h:0.49945474},
+  {x:0.61684496, y:0.28235522, w:0.31107946, h:0.32576819},
+  {x:0.48887894, y:0.80938246, w:0.43904549, h:0.16113864},
+  {x:0.60385684, y:0.71493902, w:0.02104311, h:0.05937945},
+  {x:0.90329103, y:0.71137677, w:0.01717086, h:0.06528048},
+  {x:0.61952158, y:0.03198406, w:0.29903507, h:0.01968663},
+  {x:0.62424901, y:0.05681622, w:0.28958175, h:0.01173435},
+];
+
+const BOX_NAMES=['헤더','그래픽 요소 1','출판 정보','저자 정보','메인 타이틀',
+                 '본문','각주 1','각주 2','그래픽 요소 2','각주 3'];
+
+const LAYOUT1_GRID={
+  // X 경계: 좌열 시작, 좌열 끝, 우열 시작, 우열 끝
+  xRatios:[0.08104742, 0.59010836, 0.61684496, 1.0],
+  // Y 경계: 모든 박스 상단/하단 (cleaned)
+  yRatios:[0.03198406, 0.05681622, 0.06855069, 0.09862692, 0.13042435,
+           0.13918203, 0.17456435, 0.18332209, 0.28235522, 0.60812296,
+           0.71137677, 0.71493902, 0.77431847, 0.80938246, 1.0]
+};
+
+const GALLERY_TEMPLATES = [
+  /* ── 신타이포 1: 비대칭 포스터 ── */
+  {
+    id:'neue-1', era:'neue', title:'비대칭 포스터', desc:'대각선 장력의 신타이포 포스터',
+    original: {
+      title: '영화 "이름 없는 여자 (Die Frau ohne Namen)" 홍보 포스터',
+      year: '1927',
+      image: 'images/originals/neue-1.jpg',
+      rules: [
+        '강렬한 좌우 비대칭(Asymmetry) 구성으로 동적인 긴장감 부여',
+        '산세리프(Sans-serif) 볼드 폰트와 크기 대비의 극대화',
+        '적색(Red)과 흑색(Black) 중심의 원색 컬러 팔레트 배정',
+        '여백(Whitespace)을 단순한 빈 공간이 아닌 하나의 적극적인 조판 요소로 작동'
+      ]
+    },
+    thumb:[
+      {x:'4%',y:'3%',w:'55%',h:'4%',type:'text',dark:true},
+      {x:'21%',y:'8%',w:'45%',h:'3%',type:'text',accent:true},
+      {x:'8%',y:'20%',w:'35%',h:'32%',type:'img'},
+      {x:'3%',y:'49%',w:'54%',h:'40.5%',type:'text',accent:true,circle:true},
+      {x:'8%',y:'53%',w:'43%',h:'32%',type:'img'},
+      {x:'79%',y:'22%',w:'8%',h:'6%',type:'img'},
+      {x:'66%',y:'28%',w:'11%',h:'8%',type:'img'},
+      {x:'45%',y:'39%',w:'25%',h:'15%',type:'img'},
+      {x:'60%',y:'80%',w:'36%',h:'3%',type:'text'},
+      {x:'60%',y:'84%',w:'36%',h:'5%',type:'text',dark:true},
+      {x:'60%',y:'88%',w:'36%',h:'6%',type:'text'},
+    ],
+    blocks:[
+      {type:'text',x:.04,y:.03,w:.72,h:.06,
+       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:32px;font-weight:900;letter-spacing:-1px;line-height:.8;color:#111;text-transform:uppercase;',
+       content:'DIE FRAU OHNE NAMEN'},
+      {type:'text',x:.21,y:.095,w:.45,h:.04,
+       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:14px;font-weight:bold;letter-spacing:1px;color:#c8001e;text-transform:uppercase;',
+       content:'ZWEITER TEIL'},
+      {type:'img',x:.08,y:.18,w:.35,h:.32},
+      {type:'text',x:.03,y:.49,w:.54,h:.405,
+       style:'background-color:#c8001e;border-radius:50%;opacity:0.85;pointer-events:none;',
+       content:''},
+      {type:'img',x:.08,y:.53,w:.43,h:.32},
+      {type:'img',x:.79,y:.22,w:.08,h:.06},
+      {type:'img',x:.66,y:.28,w:.11,h:.08},
+      {type:'img',x:.45,y:.39,w:.25,h:.15},
+      {type:'text',x:.60,y:.80,w:.36,h:.03,
+       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:6px;font-weight:bold;letter-spacing:0.5px;color:#333;text-transform:uppercase;',
+       content:'GEORG JACOBYS WELTREISEFILM'},
+      {type:'text',x:.60,y:.84,w:.36,h:.04,
+       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:16px;font-weight:900;letter-spacing:1px;color:#111;text-transform:uppercase;',
+       content:'PHOEBUS-PALAST'},
+      {type:'text',x:.60,y:.89,w:.36,h:.05,
+       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:5.5px;font-weight:bold;color:#444;text-transform:uppercase;line-height:1.2;',
+       content:'ANFANGSZEITEN: 4, 6:15, 8:30\nSONNTAGS: 1:45, 4, 6:15, 8:30'},
+      {type:'text',x:.04,y:.96,w:.80,h:.03,
+       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:5px;font-weight:bold;color:#666;text-transform:uppercase;',
+       content:'ENTWURF: JAN TSCHICHOLD, MÜNCHEN · DRUCK: GEBR. OBPACHER A.G. MÜNCHEN'}
+    ]
+  },
+  /* ── 신타이포 2: 바우하우스 스택 ── */
+  {
+    id:'neue-2', era:'neue', title:'바우하우스 스택', desc:'수직 분할과 굵은 타이포그래피',
+    original: {
+      title: '라이프치히 발행 "기초 타이포그래피 (Elementare Typographie)" 표지',
+      year: '1925',
+      image: 'images/originals/neue-2.jpg',
+      rules: [
+        '텍스트의 굵기(Weight)와 크기(Size)의 극적인 단계별 스택(Stacking) 구성',
+        '좌우 비대칭 구조에서 나오는 수직/수평선의 대비',
+        '시각적 집중 및 정보 구획을 돕는 굵은 두께의 붉은 수평/수직 구조선 바'
+      ]
+    },
+    thumb:[
+      {x:'4%',y:'4%',w:'28%',h:'58%',type:'text',dark:true},
+      {x:'36%',y:'4%',w:'60%',h:'44%',type:'img'},
+      {x:'36%',y:'51%',w:'60%',h:'5%',type:'text',accent:true},
+      {x:'36%',y:'59%',w:'60%',h:'8%',type:'text'},
+      {x:'4%',y:'68%',w:'92%',h:'4%',type:'text'},
+      {x:'4%',y:'78%',w:'44%',h:'14%',type:'img'},
+      {x:'52%',y:'78%',w:'44%',h:'14%',type:'img'},
+    ],
+    blocks:[
+      {type:'text',x:.04,y:.04,w:.28,h:.56,
+       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:48px;font-weight:900;letter-spacing:-3px;line-height:.82;color:#111;',
+       content:'DIE\nNEUE\nTYPE'},
+      {type:'img', x:.36,y:.04,w:.6, h:.44},
+      {type:'text',x:.36,y:.51,w:.6,h:.05,
+       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:8px;letter-spacing:6px;text-transform:uppercase;color:#c8001e;',
+       content:'Berlin · 1928 · Jan Tschichold'},
+      {type:'text',x:.36,y:.58,w:.6,h:.08,
+       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:9px;line-height:1.7;color:#555;letter-spacing:.5px;',
+       content:'Form follows function. Der Zweck bestimmt die Form.'},
+      {type:'img', x:.04,y:.7, w:.44,h:.22},
+      {type:'img', x:.52,y:.7, w:.44,h:.22},
+    ]
+  },
+  /* ── 신타이포 3: 그리드 모듈 ── */
+  {
+    id:'neue-3', era:'neue', title:'그리드 모듈', desc:'모듈러 그리드 시스템 기반 구성',
+    original: {
+      title: '"신타이포그래피 (Die neue Typographie)" 본문 그리드 설계서',
+      year: '1928',
+      image: 'images/originals/neue-3.jpg',
+      rules: [
+        '보이지 않는 수학적 모듈러 그리드(Modular Grid) 정렬선 일치',
+        '그리드를 시각화하고 분할하는 굵은 적색 가로 장식 바(Horizontal Bar) 배치',
+        '표준 DIN 용기 규격에 기반한 철저하게 기능적이고 논리적인 비례 배분'
+      ]
+    },
+    thumb:[
+      {x:'4%',y:'3%',w:'30%',h:'2%',type:'text',accent:true},
+      {x:'4%',y:'8%',w:'44%',h:'24%',type:'img'},
+      {x:'52%',y:'8%',w:'44%',h:'11%',type:'text',dark:true},
+      {x:'52%',y:'22%',w:'44%',h:'10%',type:'text'},
+      {x:'4%',y:'36%',w:'28%',h:'28%',type:'text',dark:true},
+      {x:'36%',y:'36%',w:'28%',h:'28%',type:'img'},
+      {x:'68%',y:'36%',w:'28%',h:'28%',type:'img'},
+      {x:'4%',y:'70%',w:'92%',h:'2%',type:'text',accent:true},
+      {x:'4%',y:'76%',w:'44%',h:'16%',type:'text'},
+      {x:'52%',y:'76%',w:'44%',h:'16%',type:'img'},
+    ],
+    blocks:[
+      {type:'text',x:.04,y:.03,w:.35,h:.04,
+       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:8px;letter-spacing:6px;text-transform:uppercase;color:#c8001e;',
+       content:'Grid / Module / System'},
+      {type:'img', x:.04,y:.08,w:.44,h:.24},
+      {type:'text',x:.52,y:.08,w:.44,h:.12,
+       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:26px;font-weight:900;letter-spacing:-1px;line-height:.85;color:#111;',
+       content:'FORM\nFOLLOWS'},
+      {type:'text',x:.52,y:.22,w:.44,h:.09,
+       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:8px;line-height:1.7;color:#666;letter-spacing:.3px;',
+       content:'Ratio / Signal / Grid'},
+      {type:'text',x:.04,y:.36,w:.28,h:.28,
+       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:9px;line-height:1.8;color:#444;',
+       content:'Das Raster ist das unsichtbare Gerüst jeder Komposition.'},
+      {type:'img', x:.36,y:.36,w:.28,h:.28},
+      {type:'img', x:.68,y:.36,w:.28,h:.28},
+      {type:'text',x:.04,y:.71,w:.92,h:.05,
+       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:8px;letter-spacing:5px;text-transform:uppercase;color:#c8001e;',
+       content:'Tschichold · Bauhaus · 1928'},
+      {type:'text',x:.04,y:.79,w:.44,h:.14,
+       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:8px;line-height:1.8;color:#555;',
+       content:'Typographie ist keine Kunst des Ausdrucks, sondern eine Disziplin의 Ordnung.'},
+      {type:'img', x:.52,y:.79,w:.44,h:.14},
+    ]
+  },
+  /* ── 고전 1: 대칭 포스터 ── */
+  {
+    id:'classic-1', era:'classic', title:'대칭 포스터', desc:'중앙 축 구성의 고전적 포스터',
+    original: {
+      title: '초기 고전주의 대칭 조판서 (Weimar period)',
+      year: '1923',
+      image: 'images/originals/classic-1.jpg',
+      rules: [
+        '모든 요소를 수직 중앙축을 기준으로 좌우 대칭(Centering) 정렬',
+        '세리프(Serif) 서체의 다양한 크기 변주로 시각적 위계 형성',
+        '넓고 우아한 마진과 여백(Aura) 확보',
+        '장식적 괘선(Rule)을 대칭 구성 보조용으로 제한적 활용'
+      ]
+    },
+    thumb:[
+      {x:'10%',y:'6%',w:'80%',h:'8%',type:'text'},
+      {x:'20%',y:'16%',w:'60%',h:'38%',type:'img'},
+      {x:'15%',y:'58%',w:'70%',h:'6%',type:'text'},
+      {x:'20%',y:'68%',w:'60%',h:'12%',type:'text'},
+      {x:'30%',y:'84%',w:'40%',h:'4%',type:'text'},
+    ],
+    blocks:[
+      {type:'text',x:.1,y:.05,w:.8,h:.1,
+       style:'font-family:Georgia,serif;font-size:22px;font-style:italic;color:#111;line-height:1.2;text-align:center;',
+       content:'Typographia\nStudies'},
+      {type:'text',x:.1,y:.17,w:.8,h:.05,
+       style:'font-family:Georgia,serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#888;text-align:center;',
+       content:'Basel · Est. 1892'},
+      {type:'img',x:.18,y:.24,w:.64,h:.38},
+      {type:'text',x:.12,y:.65,w:.76,h:.08,
+       style:'font-family:Georgia,serif;font-size:11px;line-height:1.7;color:#555;text-align:center;',
+       content:'Ordo et proportio in pagina\nest fundamentum artis'},
+      {type:'text',x:.2,y:.87,w:.6,h:.05,
+       style:'font-family:Georgia,serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#bbb;text-align:center;',
+       content:'ARCHIVE · III'},
+    ]
+  },
+  /* ── 고전 2: 책 표지 ── */
+  {
+    id:'classic-2', era:'classic', title:'책 표지', desc:'황금비 기반의 책 표지 레이아웃',
+    original: {
+      title: '펭귄북스(Penguin Books) 포켓 규격 커버 디자인',
+      year: '1948',
+      image: 'images/originals/classic-2.jpg',
+      rules: [
+        '본문 크기와 마진의 비례를 황금비(Golden Ratio, 2:3)에 매핑',
+        '서체 종류와 크기의 변화를 최소화하여 클래식한 기품 유지',
+        '상단(도서명), 중단(일러스트), 하단(출판사)의 3부 수직 대칭 배분'
+      ]
+    },
+    thumb:[
+      {x:'8%',y:'5%',w:'55%',h:'12%',type:'text'},
+      {x:'8%',y:'20%',w:'30%',h:'50%',type:'img'},
+      {x:'42%',y:'20%',w:'50%',h:'22%',type:'text'},
+      {x:'42%',y:'46%',w:'50%',h:'30%',type:'img'},
+      {x:'8%',y:'78%',w:'84%',h:'5%',type:'text'},
+    ],
+    blocks:[
+      {type:'text',x:.06,y:.04,w:.6,h:.14,
+       style:'font-family:Georgia,serif;font-size:24px;font-style:italic;color:#111;line-height:1.1;',
+       content:'Gutenberg\nGalerie'},
+      {type:'img', x:.06,y:.2, w:.32,h:.52},
+      {type:'text',x:.42,y:.2, w:.52,h:.22,
+       style:'font-family:Georgia,serif;font-size:9px;line-height:1.9;color:#555;',
+       content:'Der Buchdruck ist die größte Erfindung der Neuzeit und Mutter aller Künste.'},
+      {type:'img', x:.42,y:.46,w:.52,h:.3},
+      {type:'text',x:.06,y:.79,w:.88,h:.05,
+       style:'font-family:Georgia,serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#bbb;',
+       content:'SCHRIFT · KUNST · HANDWERK'},
+    ]
+  },
+  /* ── 고전 3: 저널 레이아웃 ── */
+  {
+    id:'classic-3', era:'classic', title:'저널 레이아웃', desc:'3단 그리드의 저널 페이지',
+    original: {
+      title: '바젤 활판 저널(Typographic Review) 대칭 칼럼',
+      year: '1892',
+      image: 'images/originals/classic-3.jpg',
+      rules: [
+        '균등한 폭의 3단 수직 다단(Column)을 기준으로 텍스트 배열',
+        '세리프(Serif) 서체의 높은 가독성과 규칙적인 자간 구성',
+        '상단 머리글(Running Head)과 얇은 가로선으로 레이아웃의 상하 경계 구획'
+      ]
+    },
+    thumb:[
+      {x:'5%',y:'4%',w:'90%',h:'6%',type:'text'},
+      {x:'5%',y:'12%',w:'90%',h:'.5%',type:'text',dark:true},
+      {x:'5%',y:'15%',w:'28%',h:'55%',type:'text'},
+      {x:'36%',y:'15%',w:'28%',h:'35%',type:'img'},
+      {x:'36%',y:'53%',w:'28%',h:'17%',type:'text'},
+      {x:'67%',y:'15%',w:'28%',h:'55%',type:'text'},
+      {x:'5%',y:'76%',w:'90%',h:'.5%',type:'text',dark:true},
+    ],
+    blocks:[
+      {type:'text',x:.05,y:.04,w:.9,h:.06,
+       style:'font-family:Georgia,serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:#888;text-align:center;',
+       content:'THE TYPOGRAPHIC REVIEW'},
+      {type:'img', x:.05,y:.13,w:.28,h:.38},
+      {type:'text',x:.05,y:.54,w:.28,h:.22,
+       style:'font-family:Georgia,serif;font-size:8px;line-height:1.9;color:#555;',
+       content:'Die Schrift ist das Abbild의 Sprache. Ihre Form bestimmt, wie wir lesen und denken.'},
+      {type:'text',x:.37,y:.13,w:.26,h:.62,
+       style:'font-family:Georgia,serif;font-size:9px;line-height:1.8;color:#333;',
+       content:'Typographie ist Gestaltung von Schrift im Raum. Sie ordnet, sie gliedert, sie führt den Blick.'},
+      {type:'img', x:.67,y:.13,w:.28,h:.38},
+      {type:'text',x:.67,y:.54,w:.28,h:.22,
+       style:'font-family:Georgia,serif;font-size:8px;line-height:1.9;color:#555;',
+       content:'Jede Schriftform trägt eine Geschichte. Garamond, Bodoni, Caslon — Namen, die Zeit überdauern.'},
+    ]
+  },
+];
+
+/* ── 갤러리 필터 상태 ── */
+let galleryFilter = 'all';
+let currentTemplate = null; // 현재 편집 중인 템플릿
+let tplBlocks = [];          // 편집 중인 블록 엘리먼트 배열
+let activeTplBlock = null;   // 선택된 블록
+let templateGuideCloseTimer = null;
+let currentTemplateGuideState = null;
+let templateGuideTransitionTimer = null;
+
+const TEMPLATE_GUIDE_STEPS = {
+  gallery:{index:1,title:'템플릿 선택',copy:'갤러리에서 예시 템플릿을 하나 고르세요.'},
+  image:{index:2,title:'텍스트와 이미지 채우기',copy:'템플릿 안의 텍스트/이미지 영역을 직접 선택하고 직접 입력하거나 더블클릭해 교체할 수 있습니다.'},
+  done:{index:2,title:'좋아요, 준비됐습니다',copy:'이제 텍스트와 이미지를 자유롭게 편집해 보세요.'}
+};
+
+function clearTemplateGuideTimers(){
+  if(templateGuideCloseTimer){
+    clearTimeout(templateGuideCloseTimer);
+    templateGuideCloseTimer = null;
+  }
+  if(templateGuideTransitionTimer){
+    clearTimeout(templateGuideTransitionTimer);
+    templateGuideTransitionTimer = null;
+  }
+}
+
+function closeTemplateGuide(){
+  const modal = document.getElementById('templateIntroModal');
+  if(!modal) return;
+  clearTemplateGuideTimers();
+  modal.classList.add('hide');
+  const btn = document.getElementById('templateGuideOpenBtn');
+  if(btn) btn.classList.remove('on');
+  document.querySelectorAll('.guide-target').forEach(el=>el.classList.remove('guide-target'));
+  const box = document.getElementById('templateGalleryGuideBox');
+  if(box) box.remove();
+}
+
+function getTemplateGuideStep(){
+  if(mode !== 'template') return null;
+  const editScreen = document.getElementById('editScreen');
+  if(currentTemplate && editScreen && editScreen.style.display !== 'none'){
+    return activeTplBlock && activeTplBlock.dataset.type === 'img' ? 'done' : 'image';
+  }
+  return 'gallery';
+}
+
+function updateTemplateGuide(){
+  const modal = document.getElementById('templateIntroModal');
+  if(!modal || modal.classList.contains('hide')) return;
+  const state = getTemplateGuideStep();
+  if(!state){
+    closeTemplateGuide();
+    return;
+  }
+
+  const order = ['gallery','image'];
+  const activeIndex = order.indexOf(state);
+  const stepData = TEMPLATE_GUIDE_STEPS[state] || TEMPLATE_GUIDE_STEPS.gallery;
+  const kicker = document.getElementById('templateIntroKicker');
+  const title = document.getElementById('templateIntroTitle');
+  const copy = document.getElementById('templateIntroCopy');
+  const content = document.getElementById('templateIntroContent');
+
+  const applyStepContent = () => {
+    if(kicker) kicker.textContent = state === 'done' ? 'Complete' : `Step ${stepData.index} / 2`;
+    if(title) title.textContent = stepData.title;
+    if(copy) copy.textContent = stepData.copy;
+  };
+
+  if(currentTemplateGuideState && currentTemplateGuideState !== state && content){
+    if(templateGuideTransitionTimer) clearTimeout(templateGuideTransitionTimer);
+    content.classList.add('step-changing');
+    templateGuideTransitionTimer = setTimeout(()=>{
+      applyStepContent();
+      content.classList.remove('step-changing');
+      templateGuideTransitionTimer = null;
+    },120);
+  } else {
+    applyStepContent();
+    if(content) content.classList.remove('step-changing');
+  }
+  currentTemplateGuideState = state;
+
+  document.querySelectorAll('[data-template-guide-dot]').forEach(dot=>{
+    const step = dot.dataset.templateGuideDot;
+    const stepIndex = order.indexOf(step);
+    dot.classList.toggle('active', step === state);
+    dot.classList.toggle('complete', state === 'done' || (activeIndex > -1 && stepIndex < activeIndex));
+  });
+
+  document.querySelectorAll('.guide-target').forEach(el=>el.classList.remove('guide-target'));
+  const oldGalleryBox = document.getElementById('templateGalleryGuideBox');
+  if(oldGalleryBox) oldGalleryBox.remove();
+  if(state === 'done'){
+    if(!templateGuideCloseTimer){
+      templateGuideCloseTimer = setTimeout(closeTemplateGuide,2200);
+    }
+    return;
+  }
+  if(templateGuideCloseTimer){
+    clearTimeout(templateGuideCloseTimer);
+    templateGuideCloseTimer = null;
+  }
+
+  if(state === 'gallery'){
+    const target = document.querySelector('.gallery-card[data-template-id="neue-2"]');
+    if(target) addTemplateCardGuideBox(target);
+  } else {
+    document.querySelectorAll('.tpl-img-block').forEach(el=>el.classList.add('guide-target'));
+  }
+}
+
+function addTemplateCardGuideBox(target){
+  const rect = target.getBoundingClientRect();
+  const inset = 12;
+  const box = document.createElement('div');
+  box.id = 'templateGalleryGuideBox';
+  box.className = 'template-gallery-guide-box';
+  box.style.left = (rect.left - inset) + 'px';
+  box.style.top = (rect.top - inset) + 'px';
+  box.style.width = (rect.width + inset * 2) + 'px';
+  box.style.height = (rect.height + inset * 2) + 'px';
+  document.body.appendChild(box);
+}
+
+function addTemplateGalleryGuideBox(){
+  const cards = [...document.querySelectorAll('.gallery-card')];
+  if(!cards.length) return;
+  const rects = cards.map(card=>card.getBoundingClientRect());
+  const left = Math.min(...rects.map(r=>r.left));
+  const top = Math.min(...rects.map(r=>r.top));
+  const right = Math.max(...rects.map(r=>r.right));
+  const bottom = Math.max(...rects.map(r=>r.bottom));
+  const inset = 10;
+
+  const box = document.createElement('div');
+  box.id = 'templateGalleryGuideBox';
+  box.className = 'template-gallery-guide-box';
+  box.style.left = (left - inset) + 'px';
+  box.style.top = (top - inset) + 'px';
+  box.style.width = (right - left + inset * 2) + 'px';
+  box.style.height = (bottom - top + inset * 2) + 'px';
+  document.body.appendChild(box);
+}
+
+function openTemplateGuide(){
+  const modal = document.getElementById('templateIntroModal');
+  if(!modal) return;
+  clearTemplateGuideTimers();
+  modal.classList.remove('hide');
+  const btn = document.getElementById('templateGuideOpenBtn');
+  if(btn) btn.classList.add('on');
+  currentTemplateGuideState = null;
+  updateTemplateGuide();
+}
+
+const templateIntroClose = document.getElementById('templateIntroClose');
+if(templateIntroClose){
+  templateIntroClose.addEventListener('click', closeTemplateGuide);
+}
+window.addEventListener('resize', updateTemplateGuide);
+
+/* ── 갤러리 렌더링 ── */
+function renderGallery(){
+  const grid = document.getElementById('galleryGrid');
+  if(!grid) return;
+  if(!grid.dataset.guideScrollBound){
+    grid.addEventListener('scroll', updateTemplateGuide);
+    grid.dataset.guideScrollBound = '1';
+  }
+  grid.innerHTML = '';
+  const list = GALLERY_TEMPLATES.filter(t =>
+    galleryFilter === 'all' || t.era === galleryFilter
+  );
+  list.forEach(tpl => {
+    const card = document.createElement('div');
+    card.className = 'gallery-card';
+    card.dataset.templateId = tpl.id;
+    card.innerHTML = `
+      <div class="gc-thumb">
+        ${buildThumbHTML(tpl)}
+        <button class="gc-use-btn" onclick="openTemplate('${tpl.id}')">이 템플릿 사용</button>
+      </div>
+      <div class="gc-info">
+        <div class="gc-title">${tpl.title}</div>
+        <span class="gc-badge ${tpl.era}">${tpl.era === 'classic' ? '고전' : '신타이포'}</span>
+      </div>
+    `;
+    card.addEventListener('click', e => {
+      if(e.target.classList.contains('gc-use-btn')) return;
+      // 카드 클릭도 바로 열기
+      openTemplate(tpl.id);
+    });
+    grid.appendChild(card);
+  });
+  updateTemplateGuide();
+}
+
+function buildThumbHTML(tpl){
+  return tpl.thumb.map(b => {
+    let cls = 'gct-block';
+    if(b.dark) cls += ' dark';
+    else if(b.accent) cls += ' accent';
+    let style = `left:${b.x};top:${b.y};width:${b.w};height:${b.h};`;
+    if(b.circle) style += 'border-radius:50%;';
+    return `<div class="${cls}" style="${style}"></div>`;
+  }).join('');
+}
+
+function setGalleryFilter(f){
+  galleryFilter = f;
+  document.querySelectorAll('.gtab').forEach(b => b.classList.remove('active'));
+  const tab = {all:'gtabAll',classic:'gtabClassic',neue:'gtabNeue'}[f];
+  document.getElementById(tab).classList.add('active');
+  renderGallery();
+}
+
+/* ── 실존 원본 도판 및 오버레이 헬퍼 함수 ── */
+function renderOriginalWorkRef(tpl) {
+  const container = document.getElementById('originalWorkSection');
+  if (!container) return;
+
+  const placeholder = document.getElementById('originalWorkPreviewPlaceholder');
+  const img = document.getElementById('originalWorkPreviewImg');
+  const titleEl = document.getElementById('owTitle');
+  const yearEl = document.getElementById('owYear');
+  const rulesEl = document.getElementById('originalWorkRules');
+  const filenameSpan = document.getElementById('placeholderFilename');
+
+  // Reset overlay controls
+  const chk = document.getElementById('chkCanvasOverlay');
+  if (chk) chk.checked = false;
+  const opacityCtrl = document.getElementById('overlayOpacityControl');
+  if (opacityCtrl) opacityCtrl.style.display = 'none';
+  const rng = document.getElementById('rngOverlayOpacity');
+  if (rng) rng.value = 25;
+  const lbl = document.getElementById('lblOverlayOpacity');
+  if (lbl) lbl.textContent = '25%';
+
+  // Remove existing canvas overlay
+  const oldOv = document.getElementById('canvasImageOverlay');
+  if (oldOv) oldOv.remove();
+
+  if (!tpl.original) {
+    container.style.display = 'none';
+    return;
+  }
+  container.style.display = 'block';
+
+  // Set original metadata
+  titleEl.textContent = tpl.original.title || '';
+  yearEl.textContent = tpl.original.year ? tpl.original.year + '년 작' : '';
+  
+  // Rules list
+  if (tpl.original.rules && tpl.original.rules.length > 0) {
+    rulesEl.innerHTML = '<ul>' + tpl.original.rules.map(r => `<li>${r}</li>`).join('') + '</ul>';
+  } else {
+    rulesEl.innerHTML = '';
+  }
+
+  // Image load & placeholder handling
+  const filename = tpl.original.image.split('/').pop();
+  filenameSpan.textContent = filename;
+  
+  img.src = tpl.original.image;
+  img.style.display = 'none';
+  placeholder.style.display = 'block';
+}
+
+function showOverlayPlaceholder(isError) {
+  const placeholder = document.getElementById('originalWorkPreviewPlaceholder');
+  const img = document.getElementById('originalWorkPreviewImg');
+  if (isError) {
+    placeholder.style.display = 'block';
+    img.style.display = 'none';
+  } else {
+    placeholder.style.display = 'none';
+    img.style.display = 'block';
+  }
+}
+
+function toggleCanvasOverlay(checked) {
+  const opacityCtrl = document.getElementById('overlayOpacityControl');
+  if (opacityCtrl) opacityCtrl.style.display = checked ? 'flex' : 'none';
+
+  let ov = document.getElementById('canvasImageOverlay');
+  if (checked) {
+    if (!ov && currentTemplate && currentTemplate.original) {
+      ov = document.createElement('img');
+      ov.id = 'canvasImageOverlay';
+      ov.className = 'canvas-image-overlay';
+      ov.src = currentTemplate.original.image;
+      
+      ov.onerror = function() {
+        ov.style.display = 'none';
+      };
+      
+      canvas.appendChild(ov);
+    }
+    if (ov) {
+      const val = document.getElementById('rngOverlayOpacity').value;
+      ov.style.display = 'block';
+      ov.style.opacity = (val / 100).toFixed(2);
+    }
+  } else {
+    if (ov) {
+      ov.style.display = 'none';
+    }
+  }
+}
+
+function updateCanvasOverlayOpacity(val) {
+  const lbl = document.getElementById('lblOverlayOpacity');
+  if (lbl) lbl.textContent = val + '%';
+  const ov = document.getElementById('canvasImageOverlay');
+  if (ov) {
+    ov.style.opacity = (val / 100).toFixed(2);
+  }
+}
+
+/* ── 템플릿 열기 (갤러리 → 편집) ── */
+function openTemplateDirect(id){
+  const tpl = GALLERY_TEMPLATES.find(t => t.id === id);
+  if(!tpl) return;
+  currentTemplate = tpl;
+
+  // 화면 전환
+  document.getElementById('galleryScreen').style.display = 'none';
+  document.getElementById('editScreen').style.display   = 'flex';
+  const mediumPanel = document.getElementById('mediumPanel');
+  const templatePanel = document.getElementById('templatePanel');
+  if(mediumPanel) mediumPanel.style.display = 'none';
+  if(templatePanel) templatePanel.style.display = 'block';
+
+  // 원본비교 버튼: 현재 매체 모드에서만 표시 (신타이포 레이아웃1 전용)
+  const compareBtn = document.getElementById('compareBtn');
+  if (compareBtn) compareBtn.style.display = 'none'; // 템플릿 편집에선 숨김
+
+  // 템플릿 편집 모드 진입 시 줌 박스 및 프레젠테이션/저장 버튼 노출 보장
+  const zoomBox = document.getElementById('zoomBox');
+  if(zoomBox) zoomBox.style.display = 'block';
+  const bra = document.querySelector('.bottom-right-actions');
+  if(bra) bra.style.display = 'flex';
+
+  // 우측 패널 레이블 업데이트
+  document.getElementById('templateNameLabel').textContent = tpl.title;
+  const badge = document.getElementById('templateEraBadge');
+  if (badge) {
+    badge.textContent = tpl.era === 'classic' ? '고전' : '신타이포';
+    badge.className = 'template-era-badge ' + tpl.era;
+  }
+
+  // 캔버스 초기화 + 줌 리셋
+  canvas.innerHTML = '';
+  tplBlocks = [];
+  activeTplBlock = null;
+  canvas.style.width = '420px';
+  canvas.style.height = '560px';
+  canvas.style.transformOrigin = 'center center';
+  zoomScale = 1;
+  panX = 0; panY = 0;
+  updateBaseFitScale();
+
+  // 블록 배치
+  const cw = 420, ch = 560;
+  tpl.blocks.forEach(bd => {
+    const el = createTplBlock(bd, cw, ch);
+    canvas.appendChild(el);
+    tplBlocks.push(el);
+  });
+
+  // 실존 원본 도판 정보 및 오버레이 렌더링 호출
+  renderOriginalWorkRef(tpl);
+
+  // 우측 패널: 기본 상태 (sliderContainer 비움)
+  showTplPanelDefault();
+  updateTemplateGuide();
+}
+
+function openTemplate(id) {
+  window.location.hash = '#edit/' + id;
+}
+
+/* ── 갤러리로 복귀 ── */
+function backToGallery(){
+  window.location.hash = '#template';
+}
+
+/* ── 템플릿 블록 생성 ── */
+function createTplBlock(bd, cw, ch){
+  const el = document.createElement('div');
+  const x = Math.round(bd.x * cw);
+  const y = Math.round(bd.y * ch);
+  const w = Math.round(bd.w * cw);
+  const h = Math.round(bd.h * ch);
+
+  el.style.left = x+'px';
+  el.style.top  = y+'px';
+  el.style.width = w+'px';
+  el.style.height = h+'px';
+  el.dataset.bx = bd.x;
+  el.dataset.by = bd.y;
+  el.dataset.bw = bd.w;
+  el.dataset.bh = bd.h;
+
+  if(bd.type === 'text'){
+    el.className = 'tpl-text-block';
+    el.dataset.type = 'text';
+    const inner = document.createElement('div');
+    inner.contentEditable = 'true';
+    inner.spellcheck = false;
+    inner.style.cssText = (bd.style || 'font-family:"Arial Narrow",Arial,sans-serif;font-size:14px;color:#111;') +
+      'outline:none;width:100%;min-height:100%;white-space:pre-wrap;word-break:break-word;';
+    inner.textContent = (bd.content !== undefined) ? bd.content : '텍스트를 입력하세요';
+    inner.addEventListener('focus', ()=>{ if(inner.textContent === '텍스트를 입력하세요' || inner.textContent === 'Enter text') inner.textContent=''; });
+    el.appendChild(inner);
+
+  } else {
+    el.className = 'tpl-img-block';
+    el.dataset.type = 'img';
+    if(bd.src){
+      const img = document.createElement('img');
+      img.src = bd.src;
+      el.appendChild(img);
+    } else {
+      const ph = document.createElement('div');
+      ph.className = 'tpl-img-placeholder';
+      ph.textContent = '더블클릭으로\n이미지 교체';
+      ph.style.whiteSpace = 'pre';
+      el.appendChild(ph);
+    }
+    const hint = document.createElement('div');
+    hint.className = 'dbl-hint';
+    hint.textContent = '더블클릭 · 교체';
+    el.appendChild(hint);
+
+    // 더블클릭 → 파일 교체
+    el.addEventListener('dblclick', ()=>{
+      const fi = document.getElementById('tpl-file-input');
+      fi.onchange = ev => {
+        const file = ev.target.files[0];
+        if(!file) return;
+        const url = URL.createObjectURL(file);
+        el.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = url;
+        el.appendChild(img);
+        const h2 = document.createElement('div');
+        h2.className = 'dbl-hint';
+        h2.textContent = '더블클릭 · 교체';
+        el.appendChild(h2);
+        fi.value = '';
+      };
+      fi.click();
+    });
+  }
+
+  makeTplDraggable(el);
+  el.addEventListener('mousedown', e => {
+    if(e.target.contentEditable === 'true') return;
+    selectTplBlock(el);
+  });
+  el.addEventListener('click', e => {
+    if(e.target.contentEditable !== 'true') selectTplBlock(el);
+  });
+
+  return el;
+}
+
+/* ── 블록 드래그 ── */
+let tplDragEl=null, tplDragOx=0, tplDragOy=0;
+
+function makeTplDraggable(el){
+  el.addEventListener('mousedown', e => {
+    if(isPresentationMode) return;
+    if(e.target.contentEditable === 'true') return;
+    if(spaceDown) return;
+    e.preventDefault();
+    tplDragEl = el;
+    selectTplBlock(el);
+    const r = el.getBoundingClientRect();
+    tplDragOx = (e.clientX - r.left) / currentScale;
+    tplDragOy = (e.clientY - r.top)  / currentScale;
+    el.classList.add('dragging');
+  });
+}
+document.addEventListener('mousemove', e => {
+  if(!tplDragEl) return;
+  const cr = canvas.getBoundingClientRect();
+  const cw = parseFloat(canvas.style.width)||canvas.offsetWidth;
+  const ch = parseFloat(canvas.style.height)||canvas.offsetHeight;
+  let nx = (e.clientX - cr.left)/currentScale - tplDragOx;
+  let ny = (e.clientY - cr.top) /currentScale - tplDragOy;
+  nx = Math.max(0, Math.min(cw - tplDragEl.offsetWidth,  nx));
+  ny = Math.max(0, Math.min(ch - tplDragEl.offsetHeight, ny));
+  tplDragEl.style.left = nx+'px';
+  tplDragEl.style.top  = ny+'px';
+});
+document.addEventListener('mouseup', ()=>{
+  if(tplDragEl){ tplDragEl.classList.remove('dragging'); tplDragEl=null; }
+});
+
+/* ── 블록 선택 & 우측 패널 ── */
+function selectTplBlock(el){
+  if(activeTplBlock) activeTplBlock.classList.remove('selected');
+  activeTplBlock = el;
+  el.classList.add('selected');
+  renderTplPanel(el);
+  updateTemplateGuide();
+}
+
+function deselectTplBlock(){
+  if(activeTplBlock) activeTplBlock.classList.remove('selected');
+  activeTplBlock = null;
+  showTplPanelDefault();
+}
+
+canvas.addEventListener('mousedown', e => {
+  if(e.target === canvas) deselectTplBlock();
+});
+
+function showTplPanelDefault(){
+  const c = document.getElementById('tplPropertiesContainer');
+  if (c) c.innerHTML = '<div style="font-size:11px;color:#ccc;letter-spacing:2px;text-transform:uppercase;font-family:\'Arial Narrow\',Arial,sans-serif;padding:0 16px">블록을 클릭해 속성 편집</div>';
+  // elementActions 숨김
+  const ea = document.getElementById('elementActions');
+  if(ea) ea.style.display='none';
+}
+
+function clearTplPanel(){
+  showTplPanelDefault();
+}
+
+function renderTplPanel(el){
+  const c = document.getElementById('tplPropertiesContainer');
+  if (!c) return;
+  c.innerHTML = '';
+
+  const type = el.dataset.type;
+
+  if(type === 'text'){
+    const inner = el.querySelector('[contenteditable]');
+    const st = inner ? inner.style : {};
+
+    const fontOptions = [
+      {v:'Georgia,serif',l:'Georgia'},
+      {v:'"Arial Narrow",Arial,sans-serif',l:'Arial Narrow'},
+      {v:'"Times New Roman",serif',l:'Times New Roman'},
+      {v:'Arial,sans-serif',l:'Arial'},
+    ];
+    const weightOptions = [{v:'400',l:'Regular'},{v:'700',l:'Bold'},{v:'900',l:'Black'}];
+
+    c.innerHTML = `
+      <div class="block-props">
+        <div class="panel-label">텍스트 속성</div>
+        <div class="bp-row">
+          <span class="bp-label">폰트</span>
+          <select class="bp-select" id="bpFont" onchange="updateTplText('fontFamily',this.value)">
+            ${fontOptions.map(o=>`<option value="${o.v}" ${(st.fontFamily||'').includes(o.v.split(',')[0].replace(/"/g,''))?'selected':''}>${o.l}</option>`).join('')}
+          </select>
+        </div>
+        <div class="bp-row">
+          <span class="bp-label">굵기</span>
+          <select class="bp-select" id="bpWeight" onchange="updateTplText('fontWeight',this.value)">
+            ${weightOptions.map(o=>`<option value="${o.v}" ${st.fontWeight===o.v?'selected':''}>${o.l}</option>`).join('')}
+          </select>
+        </div>
+        <div class="bp-row">
+          <span class="bp-label">크기</span>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input class="bp-input" type="number" id="bpSize" value="${parseInt(st.fontSize)||14}"
+              style="width:56px;" onchange="updateTplText('fontSize',this.value+'px')">
+            <span class="bp-val">px</span>
+          </div>
+        </div>
+        <div class="bp-row">
+          <span class="bp-label">자간</span>
+          <input class="bp-input" type="number" id="bpSpacing" value="${parseFloat(st.letterSpacing)||0}" step="0.5"
+            style="width:70px;" onchange="updateTplText('letterSpacing',this.value+'px')">
+        </div>
+        <div class="bp-row">
+          <span class="bp-label">행간</span>
+          <input class="bp-input" type="number" id="bpLineH" value="${parseFloat(st.lineHeight)||1.4}" step="0.1"
+            style="width:70px;" onchange="updateTplText('lineHeight',this.value)">
+        </div>
+        <div class="bp-row">
+          <span class="bp-label">정렬</span>
+          <div class="bp-align">
+            <button id="bpa-left"   onclick="setTplAlign('left')"   class="${(st.textAlign||'left')==='left'  ?'active':''}">←</button>
+            <button id="bpa-center" onclick="setTplAlign('center')" class="${st.textAlign==='center'?'active':''}">↔</button>
+            <button id="bpa-right"  onclick="setTplAlign('right')"  class="${st.textAlign==='right' ?'active':''}">→</button>
+          </div>
+        </div>
+        <div class="bp-row">
+          <span class="bp-label">색상</span>
+          <input type="color" value="${rgbToHex(st.color||'#111111')}"
+            oninput="updateTplText('color',this.value)" style="width:36px;height:28px;border:1px solid #ddd;padding:2px;cursor:pointer;">
+        </div>
+        <div style="margin-top:12px;">
+          <button class="bp-delete" onclick="deleteTplBlock()">요소 삭제</button>
+        </div>
+      </div>
+    `;
+  } else if(type === 'img'){
+    c.innerHTML = `
+      <div class="block-props">
+        <div class="panel-label">이미지 속성</div>
+        <label class="bp-img-replace" onclick="triggerTplImgReplace()">이미지 교체</label>
+        <div class="bp-row" style="margin-top:10px;">
+          <span class="bp-label">비율 유지</span>
+          <select class="bp-select" id="bpFit" onchange="setTplImgFit(this.value)">
+            <option value="cover">Cover (채우기)</option>
+            <option value="contain">Contain (맞추기)</option>
+            <option value="fill">Fill (늘리기)</option>
+          </select>
+        </div>
+        <div style="margin-top:12px;">
+          <button class="bp-delete" onclick="deleteTplBlock()">요소 삭제</button>
+        </div>
+      </div>
+    `;
+    // 현재 object-fit 반영
+    const img = el.querySelector('img');
+    if(img) document.getElementById('bpFit').value = img.style.objectFit || 'cover';
+  }
+}
+
+function updateTplText(prop, val){
+  if(!activeTplBlock || activeTplBlock.dataset.type !== 'text') return;
+  const inner = activeTplBlock.querySelector('[contenteditable]');
+  if(inner) inner.style[prop] = val;
+}
+
+function setTplAlign(align){
+  updateTplText('textAlign', align);
+  ['left','center','right'].forEach(a => {
+    const btn = document.getElementById('bpa-'+a);
+    if(btn) btn.classList.toggle('active', a===align);
+  });
+}
+
+function setTplImgFit(val){
+  if(!activeTplBlock || activeTplBlock.dataset.type !== 'img') return;
+  const img = activeTplBlock.querySelector('img');
+  if(img) img.style.objectFit = val;
+}
+
+function triggerTplImgReplace(){
+  if(!activeTplBlock || activeTplBlock.dataset.type !== 'img') return;
+  const fi = document.getElementById('tpl-file-input');
+  fi.onchange = ev => {
+    const file = ev.target.files[0];
+    if(!file) return;
+    const url = URL.createObjectURL(file);
+    activeTplBlock.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = url;
+    const fit = document.getElementById('bpFit');
+    img.style.objectFit = fit ? fit.value : 'cover';
+    activeTplBlock.appendChild(img);
+    const hint = document.createElement('div');
+    hint.className = 'dbl-hint';
+    hint.textContent = '더블클릭 · 교체';
+    activeTplBlock.appendChild(hint);
+    fi.value = '';
+  };
+  fi.click();
+}
+
+function deleteTplBlock(){
+  if(!activeTplBlock) return;
+  activeTplBlock.remove();
+  tplBlocks = tplBlocks.filter(b => b !== activeTplBlock);
+  activeTplBlock = null;
+  clearTplPanel();
+}
+
+function rgbToHex(str){
+  if(!str) return '#111111';
+  if(str.startsWith('#')) return str;
+  const m = str.match(/\d+/g);
+  if(!m) return '#111111';
+  return '#'+[m[0],m[1],m[2]].map(n=>parseInt(n).toString(16).padStart(2,'0')).join('');
+}
+
+/* ═══════════════════════════════════════════════════
+   기존 LAB 로직 (매체 모드용 — 기존 코드 완전 보존)
+═══════════════════════════════════════════════════ */
+const PRESETS={
+  poster:{
+    classic:[{label:'1'}],
+    neue:[{label:'1'},{label:'2'}]
+  },
+  ad:{
+    classic:[{label:'1'}],
+    neue:[{label:'1'},{label:'2'}]
+  },
+  book:{
+    classic:[{label:'1'}],
+    neue:[{label:'1'},{label:'2'}]
+  }
+};
+
+function setMode(m){
+  mode=m;
+  const btnIntro = document.getElementById('btnIntro');
+  const btnMedium = document.getElementById('btnMedium');
+  const btnTemplate = document.getElementById('btnTemplate');
+  if(btnIntro) btnIntro.classList.toggle('active',m==='intro');
+  if(btnMedium) btnMedium.classList.toggle('active',m==='medium');
+  if(btnTemplate) btnTemplate.classList.toggle('active',m==='template');
+
+  const compareBtn = document.getElementById('compareBtn');
+  const galleryBackBtn = document.getElementById('galleryBackBtn');
+  const mediumPanel = document.getElementById('mediumPanel');
+  const templatePanel = document.getElementById('templatePanel');
+  const templateGuideOpenBtn = document.getElementById('templateGuideOpenBtn');
+
+  if (m==='template'){
+    if(templateGuideOpenBtn) templateGuideOpenBtn.style.display = 'block';
+    // [템플릿 모드]: 템플릿 갤러리 활성화
+    document.getElementById('galleryScreen').style.display='flex';
+    document.getElementById('editScreen').style.display='none';
+    if(mediumPanel) mediumPanel.style.display='none';
+    if(templatePanel) templatePanel.style.display='block';
+    
+    if(compareBtn) compareBtn.style.display='none';
+    if(galleryBackBtn) galleryBackBtn.style.display='block';
+    
+    canvas.style.width='420px';
+    canvas.style.height='560px';
+    clearActiveBlock();
+    renderGallery();
+    openTemplateGuide();
+  } else {
+    if(templateGuideOpenBtn) templateGuideOpenBtn.style.display = 'none';
+    closeTemplateGuide();
+  }
+}
+
+function clearActiveBlock(){
+  if(activeBlock) activeBlock.classList.remove('selected');
+  activeBlock=null;
+  const tp=document.getElementById('textProps');
+  if(tp) tp.style.display='none';
+  const ea=document.getElementById('elementActions');
+  if(ea) ea.style.display='none';
+}
+
+function setActiveBlock(el){
+  if(activeBlock) activeBlock.classList.remove('selected');
+  activeBlock=el;
+  if(el) el.classList.add('selected');
+}
+
+function deleteActiveBlock(){
+  if(!activeBlock) return;
+  activeBlock.remove();
+  blocks=blocks.filter(b=>b!==activeBlock);
+  clearActiveBlock();
+  if(mode === 'medium') updateBoxPaletteUsage();
+}
+
+function syncTextPropsUI(){
+  if(!activeBlock||activeBlock.dataset.type!=='text') return;
+  const inner=activeBlock.querySelector('div');
+  const style=inner.style;
+  const ctrlFont=document.getElementById('ctrlFont');
+  const ctrlWeight=document.getElementById('ctrlWeight');
+  if(ctrlFont) ctrlFont.value=style.fontFamily.replace(/"/g,'')||"'Arial Narrow',Arial,sans-serif";
+  if(ctrlWeight) ctrlWeight.value=style.fontWeight||"700";
+  const align=style.textAlign||"left";
+  ['left','center','right'].forEach(a=>{
+    const el=document.getElementById('align'+a);
+    if(el) el.classList.toggle('active',align===a);
+  });
+  const size=parseInt(style.fontSize)||28;
+  const ctrlSize=document.getElementById('ctrlSize');
+  const valSize=document.getElementById('valSize');
+  if(ctrlSize) ctrlSize.value=size;
+  if(valSize) valSize.textContent=size+'px';
+  const spacing=parseInt(style.letterSpacing)||-1;
+  const ctrlSpacing=document.getElementById('ctrlSpacing');
+  const valSpacing=document.getElementById('valSpacing');
+  if(ctrlSpacing) ctrlSpacing.value=spacing;
+  if(valSpacing) valSpacing.textContent=spacing+'px';
+  const lheight=parseFloat(style.lineHeight)||1.2;
+  const ctrlHeight=document.getElementById('ctrlHeight');
+  const valHeight=document.getElementById('valHeight');
+  if(ctrlHeight) ctrlHeight.value=lheight;
+  if(valHeight) valHeight.textContent=lheight;
+}
+
+function updateText(prop,val){
+  if(!activeBlock||activeBlock.dataset.type!=='text') return;
+  const inner=activeBlock.querySelector('div');
+  inner.style[prop]=val;
+  syncTextPropsUI();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ─── 줌 & 패닝 ─── */
+const canvasWrap=document.getElementById('canvasWrap');
+let zoomScale=1,baseFitScale=1,panX=0,panY=0;
+let isPanning=false,panStartX=0,panStartY=0,panStartPanX=0,panStartPanY=0;
+canvas.style.transformOrigin='center center';
+
+function updateBaseFitScale() {
+  const wrap = document.getElementById('canvasWrap');
+  if (!wrap) return;
+  const wrapW = wrap.clientWidth;
+  const wrapH = wrap.clientHeight;
+  if (!wrapW || !wrapH) return;
+
+  // 캔버스 주변 여백 (양쪽에 40px씩 총 80px)
+  const padding = 80;
+  const scaleX = (wrapW - padding) / 420;
+  const scaleY = (wrapH - padding) / 560;
+
+  baseFitScale = Math.min(scaleX, scaleY);
+  applyCanvasTransform();
+}
+
+window.addEventListener('resize', () => {
+  const editScreen = document.getElementById('editScreen');
+  if (editScreen && editScreen.style.display !== 'none') {
+    updateBaseFitScale();
+  }
+});
+
+let isPresentationMode = false;
+
+function enterPresentationMode() {
+  const lab = document.getElementById('lab');
+  if (!lab) return;
+  isPresentationMode = true;
+  lab.classList.add('presentation-mode');
+
+  // 선택되어 있던 블록 활성화 해제
+  deselectTplBlock();
+  clearActiveBlock();
+
+  // 화면 패널 숨김 후 대지 스케일 재계산
+  updateBaseFitScale();
+}
+
+function exitPresentationMode() {
+  const lab = document.getElementById('lab');
+  if (!lab) return;
+  isPresentationMode = false;
+  lab.classList.remove('presentation-mode');
+
+  // 다시 편집용 컨테이너에 맞춰 대지 스케일 재계산
+  updateBaseFitScale();
+}
+
+function applyCanvasTransform(){
+  const totalScale=baseFitScale*zoomScale;
+  canvas.style.transform=`translate(${panX}px,${panY}px) scale(${totalScale})`;
+  currentScale=totalScale;
+  updateZoomDisplay();
+}
+
+function updateZoomDisplay(){
+  const pct=Math.round(zoomScale*100);
+  const el=document.getElementById('zoomValue');
+  if(el) el.textContent=pct+'%';
+}
+
+function setZoomLevel(pct){ zoomScale=pct/100; applyCanvasTransform(); }
+
+function resetZoomForMediumMode(){
+  zoomScale=1;panX=0;panY=0;
+  canvas.style.transformOrigin='center center';
+  updateBaseFitScale();
+}
+
+canvasWrap.addEventListener('wheel',e=>{
+  e.preventDefault();
+  // deltaY의 크기에 비례하는 지수 함수(Math.exp)를 적용하여 트랙패드와 마우스 휠의 감도를 균일하게 맞춥니다.
+  const factor = Math.exp(-e.deltaY * 0.001);
+  zoomScale = clamp(zoomScale * factor, 0.1, 10);
+  applyCanvasTransform();
+},{passive:false});
+
+let spaceDown=false;
+document.addEventListener('keydown',ev=>{if(ev.code==='Space'&&!ev.target.isContentEditable)spaceDown=true;});
+document.addEventListener('keyup',ev=>{if(ev.code==='Space')spaceDown=false;});
+
+canvasWrap.addEventListener('mousedown',e=>{
+  const onCanvas=canvas.contains(e.target)&&e.target!==canvas;
+  if(!onCanvas||spaceDown){
+    isPanning=true;panStartX=e.clientX;panStartY=e.clientY;
+    panStartPanX=panX;panStartPanY=panY;
+    canvasWrap.style.cursor='grabbing';e.preventDefault();
+  }
+});
+document.addEventListener('mousemove',e=>{
+  if(!isPanning) return;
+  panX=panStartPanX+(e.clientX-panStartX);
+  panY=panStartPanY+(e.clientY-panStartY);
+  applyCanvasTransform();
+});
+document.addEventListener('mouseup',()=>{
+  if(isPanning){isPanning=false;canvasWrap.style.cursor='';}
+});
+
+/* ─── 줌 UI ─── */
+function zoomStep(direction){
+  const steps=[25,50,75,100,200,300,400,500];
+  const cur=Math.round(zoomScale*100);
+  if(direction==='up'){const next=steps.find(s=>s>cur);if(next)setZoomLevel(next);}
+  else{const prev=[...steps].reverse().find(s=>s<cur);if(prev)setZoomLevel(prev);}
+}
+
+function applyZoomInput(){
+  const el=document.getElementById('zoomValue');if(!el)return;
+  el.contentEditable = "false";
+  const val=parseInt(el.textContent);
+  if(!isNaN(val)&&val>0) {
+    setZoomLevel(val);
+  } else {
+    updateZoomDisplay();
+  }
+}
+
+// zoomValue 더블클릭 시 직접 편집 가능하도록 이벤트 바인딩
+(function initZoomValueDblClick(){
+  const el = document.getElementById('zoomValue');
+  if(!el) return;
+  el.addEventListener('dblclick', () => {
+    el.contentEditable = "true";
+    
+    // % 기호를 떼고 숫자만 보여주어 편집하기 편하도록 가공
+    let text = el.textContent.trim();
+    if(text.endsWith('%')) {
+      text = text.substring(0, text.length - 1);
+      el.textContent = text;
+    }
+    el.focus();
+    
+    // 전체 텍스트 자동 선택
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  });
+})();
+
+function toggleZoomDropdown(){
+  const dd=document.getElementById('zoomDropdown');if(!dd)return;
+  dd.style.display=dd.style.display==='block'?'none':'block';
+}
+
+document.addEventListener('click',e=>{
+  const dd=document.getElementById('zoomDropdown');
+  const box=document.getElementById('zoomBox');
+  if(dd&&box&&!box.contains(e.target)) dd.style.display='none';
+});
+
+function selectZoomPreset(pct){
+  setZoomLevel(pct);
+  const dd=document.getElementById('zoomDropdown');if(dd)dd.style.display='none';
+}
+
+function setModeAndResetZoom(m){
+  setMode(m);
+}
+
+function downloadCanvas(){
+  alert('완성된 레이아웃을 저장하려면 브라우저 스크린샷을 이용하세요.\n(배포 시 html2canvas 연동 권장)');
+}
+
+/* ── 초기화 ── */
+// hidden file input for template image replace
+(function(){
+  const fi=document.createElement('input');
+  fi.type='file';fi.accept='image/*';fi.id='tpl-file-input';fi.style.display='none';
+  document.body.appendChild(fi);
+})();
+
+// 초기 모드 설정 및 줌 업데이트
+initRouter();
+updateZoomDisplay();
+
+</script>
+</body>
+</html>
