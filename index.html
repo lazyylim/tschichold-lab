@@ -22,7 +22,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
   position:absolute;inset:0;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   background:#f0ede6;
-  font-family:Georgia,'Times New Roman',serif;
+  font-family:'Cormorant Garamond', 'Noto Serif KR', Georgia, 'Times New Roman', serif;
   color:#1a1a1a;
   clip-path:polygon(0 0, 50% 0, 50% 100%, 0 100%);
   transition:clip-path 0s;
@@ -39,14 +39,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
   display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
   padding-left:80px;
   background:#111;
-  font-family:'Arial Narrow',Arial,sans-serif;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
   color:#f5f5f0;
   clip-path:polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
   transition:clip-path 0s;
   user-select:none;
 }
 .ln-label{position:absolute;top:48px;left:64px;font-size:9px;letter-spacing:8px;color:#555;text-transform:uppercase;}
-.ln-title{font-size:clamp(64px,9vw,128px);font-weight:900;line-height:.85;letter-spacing:-4px;color:#f5f5f0;text-align:left;}
+.ln-title{font-size:clamp(64px,9vw,128px);font-weight:700;line-height:.85;letter-spacing:-4px;color:#f5f5f0;text-align:left;}
 .ln-accent{width:0;height:3px;background:#c8001e;margin:28px auto 20px 0;transition:width .4s ease;}
 .ln-sub{font-size:9px;letter-spacing:6px;text-transform:uppercase;color:#c8001e;text-align:left;}
 .ln-grid{position:absolute;inset:0;pointer-events:none;opacity:0.06;}
@@ -60,20 +60,20 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 .lcc-dot{position:absolute;top:50%;left:50%;width:5px;height:5px;background:#c8001e;transform:translate(-50%,-50%);}
 
 .land-footer{position:absolute;bottom:40px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:48px;pointer-events:none;z-index:10;}
-.lf-left{font-family:Georgia,serif;font-style:italic;font-size:13px;letter-spacing:3px;color:#888;pointer-events:none;}
-.lf-right{font-family:'Arial Narrow',Arial,sans-serif;font-size:13px;letter-spacing:5px;text-transform:uppercase;color:#555;pointer-events:none;}
-.land-cta{display:inline-block;padding:14px 44px;border:1px solid #c8001e;background:transparent;font-family:'Arial Narrow',Arial,sans-serif;font-size:13px;letter-spacing:6px;text-transform:uppercase;color:#c8001e;cursor:pointer;transition:all .25s;pointer-events:all;position:relative;z-index:11;}
-.land-cta:hover{background:#c8001e;color:#fff;border-color:#c8001e;}
+.lf-left{font-family:\"Cormorant Garamond\", \"Noto Serif KR\", Georgia, \"Times New Roman\", serif;font-style:italic;font-size:14px;letter-spacing:3px;color:#888;pointer-events:none;}
+.lf-right{font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;font-size:13px;letter-spacing:5px;text-transform:uppercase;color:#555;pointer-events:none;}
+.land-cta{display:inline-block;padding:14px 44px;border:1px solid #c8001e;background:#c8001e;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;font-size:13px;letter-spacing:6px;text-transform:uppercase;color:#fff;cursor:pointer;transition:all .25s;pointer-events:all;position:relative;z-index:11;}
+.land-cta:hover{background:transparent;color:#c8001e;border-color:#c8001e;}
 
 /* ── LAB ── */
 #lab{position:fixed;inset:0;display:none;flex-direction:column;background:#f5f5f0}
 #lab.show{display:flex}
 
 .topbar{height:56px;border-bottom:1px solid #ddd;display:flex;align-items:center;padding:0 24px;flex-shrink:0;background:#f5f5f0;}
-.topbar .logo{font-family:Georgia,serif;font-size:16px;letter-spacing:3px;text-transform:uppercase;color:#111;font-style:italic;cursor:pointer;transition:opacity 0.2s;}
+.topbar .logo{font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;font-size:16px;letter-spacing:3px;text-transform:uppercase;color:#111;font-style:italic;cursor:pointer;transition:opacity 0.2s;}
 .topbar .logo:hover{opacity:0.6;}
 .topbar-nav{display:flex;gap:4px;margin-left:auto}
-.tb-btn{padding:8px 20px;font-size:13px;letter-spacing:3px;text-transform:uppercase;border:1px solid transparent;background:transparent;cursor:pointer;color:#888;font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;}
+.tb-btn{padding:8px 20px;font-size:14px;letter-spacing:3px;text-transform:uppercase;border:1px solid transparent;background:transparent;cursor:pointer;color:#888;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .15s;}
 .tb-btn:hover{color:#111;border-color:#ccc}
 .tb-btn.active{color:#111;border-color:#111}
 
@@ -91,7 +91,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
     linear-gradient(180deg,rgba(255,255,252,.98),rgba(241,240,234,.98));
   border:1px solid rgba(17,17,17,.22);
   padding:0;
-  font-family:'Arial Narrow',Arial,sans-serif;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
   box-shadow:0 18px 44px rgba(0,0,0,.18),0 1px 0 rgba(255,255,255,.7) inset;
   pointer-events:auto;
   backdrop-filter:blur(6px);
@@ -113,20 +113,19 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
   width:28px;height:28px;border:1px solid rgba(17,17,17,.18);
   background:rgba(255,255,252,.75);color:#555;
   font-size:17px;line-height:17px;cursor:pointer;
-  font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;display:flex;align-items:center;justify-content:center;
   transition:all .15s;
 }
 .intro-close:hover{background:#111;color:#f5f5f0;border-color:#111}
 .intro-copy{
-  margin:0;font-size:13px;line-height:1.55;
+  margin:0;font-size:14px;line-height:1.6;
   letter-spacing:1px;color:#57534d;
 }
 .intro-kicker{
-  margin:0 0 11px;font-size:11px;letter-spacing:3px;text-transform:uppercase;
-  color:#8b8780;font-family:'Arial Narrow',Arial,sans-serif;
+  margin:0 0 11px;font-size:12px;letter-spacing:3px;text-transform:uppercase;
+  color:#8b8780;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
 }
-.intro-title{
-  margin:0 0 11px;font-family:Georgia,serif;font-size:27px;font-weight:400;
+.intro-title{margin:0 0 11px;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;font-size:28px;font-weight:400;
   line-height:1.15;font-style:italic;letter-spacing:1px;color:#111;white-space:nowrap;
 }
 #templateIntroModal .intro-guide{width:348px;top:auto;bottom:16px;left:16px;}
@@ -171,9 +170,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 }
 .guide-open-btn{
   position:absolute;top:14px;left:14px;z-index:10;
-  padding:8px 14px;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  padding:8px 14px;font-size:12px;letter-spacing:3px;text-transform:uppercase;
   border:1px solid #111;background:rgba(245,245,240,.94);cursor:pointer;
-  font-family:'Arial Narrow',Arial,sans-serif;color:#111;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;color:#111;
   transition:all .15s;
 }
 .guide-open-btn:hover,.guide-open-btn.on{background:#111;color:#f5f5f0}
@@ -192,20 +191,19 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 .gallery-screen.hidden{display:none;}
 
 .gallery-header{
-  padding:28px 40px 20px;
+  padding:16px 40px 16px;
   border-bottom:1px solid #ddd;
   display:flex;align-items:center;justify-content:space-between;
   flex-shrink:0;
 }
-.gallery-title{
-  font-family:Georgia,serif;font-size:13px;font-style:italic;
+.gallery-title{font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;font-size:13px;font-style:italic;
   letter-spacing:3px;text-transform:uppercase;color:#888;
 }
 .gallery-tabs{display:flex;gap:0;}
 .gtab{
   padding:8px 20px;font-size:11px;letter-spacing:4px;text-transform:uppercase;
   border:1px solid #ddd;background:transparent;cursor:pointer;color:#888;
-  font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .15s;
   margin-left:-1px;
 }
 .gtab:first-child{margin-left:0;}
@@ -268,21 +266,21 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
   padding:8px 20px;
   font-size:10px;letter-spacing:4px;text-transform:uppercase;
   border:none;background:#111;color:#f5f5f0;
-  font-family:'Arial Narrow',Arial,sans-serif;cursor:pointer;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;cursor:pointer;
   white-space:nowrap;
 }
 .gc-use-btn:hover{background:#c8001e;}
 
 .gc-info{padding:12px 2px 0;}
 .gc-title{
-  font-family:'Arial Narrow',Arial,sans-serif;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
   font-size:12px;letter-spacing:3px;text-transform:uppercase;
   color:#111;margin-bottom:6px;
 }
 .gc-badge{
   display:inline-block;
   padding:3px 8px;font-size:9px;letter-spacing:3px;text-transform:uppercase;
-  font-family:'Arial Narrow',Arial,sans-serif;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
 }
 .gc-badge.classic{background:#f0ede6;color:#888;}
 .gc-badge.neue{background:#111;color:#f5f5f0;}
@@ -323,17 +321,17 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 /* 갤러리 복귀 버튼 */
 .gallery-back-btn{
   position:absolute;top:16px;left:16px;z-index:15;
-  padding:8px 16px;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  height:32px;padding:0 15px;font-size:12px;letter-spacing:3px;text-transform:uppercase;
   border:1px solid #888;background:#f5f5f0;cursor:pointer;color:#888;
-  font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .15s;
 }
 .gallery-back-btn:hover{border-color:#111;color:#111;}
 
 .compare-btn{
   position:absolute;top:16px;left:16px;z-index:15;
-  padding:8px 16px;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  padding:8px 16px;font-size:12px;letter-spacing:3px;text-transform:uppercase;
   border:1px solid #111;background:#f5f5f0;cursor:pointer;
-  font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .15s;
 }
 .compare-btn:hover,.compare-btn.on{background:#111;color:#f5f5f0}
 .bottom-right-actions{
@@ -341,23 +339,23 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
   display:flex;gap:8px;
 }
 .pres-btn, .dl-btn{
-  padding:8px 16px;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  padding:8px 16px;font-size:12px;letter-spacing:3px;text-transform:uppercase;
   border:1px solid #111;background:#f5f5f0;cursor:pointer;
-  font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .15s;
 }
 .pres-btn:hover, .dl-btn:hover{background:#111;color:#f5f5f0}
 
 /* 줌 박스 */
-.zoom-box{position:absolute;bottom:16px;left:16px;z-index:15;font-family:'Arial Narrow',Arial,sans-serif;user-select:none;}
+.zoom-box{position:absolute;bottom:16px;left:16px;z-index:15;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;user-select:none;}
 .zoom-main{display:flex;align-items:center;border:1px solid #bbb;background:#f5f5f0;height:28px;}
-.zoom-value{display:inline-block;min-width:44px;text-align:center;font-size:11px;letter-spacing:2px;color:#555;padding:0 8px;outline:none;cursor:text;line-height:26px;}
+.zoom-value{display:inline-block;min-width:44px;text-align:center;font-size:12px;letter-spacing:2px;color:#555;padding:0 8px;outline:none;cursor:text;line-height:26px;user-select:text;-webkit-user-select:text;}
 .zoom-value:focus{background:#fff;color:#111;}
 .zoom-arrows{display:flex;flex-direction:column;border-left:1px solid #bbb;}
 .zoom-arrow-btn{flex:1;width:20px;background:transparent;border:none;font-size:7px;color:#888;cursor:pointer;padding:0;line-height:1;transition:background .12s;display:flex;align-items:center;justify-content:center;}
 .zoom-arrow-btn:hover{background:#e0deda;color:#111;}
 .zoom-arrow-btn:first-child{border-bottom:1px solid #bbb;}
 .zoom-dropdown{display:none;position:absolute;bottom:100%;left:0;border:1px solid #bbb;background:#f5f5f0;min-width:72px;margin-bottom:2px;}
-.zoom-dropdown button{display:block;width:100%;text-align:left;padding:6px 10px;font-size:11px;letter-spacing:2px;font-family:'Arial Narrow',Arial,sans-serif;border:none;background:transparent;cursor:pointer;color:#555;transition:background .12s;}
+.zoom-dropdown button{display:block;width:100%;text-align:left;padding:6px 10px;font-size:12px;letter-spacing:2px;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;border:none;background:transparent;cursor:pointer;color:#555;transition:background .12s;}
 .zoom-dropdown button:hover{background:#e0deda;color:#111;}
 
 /* Right panel */
@@ -367,56 +365,56 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
   background:#f5f5f0;overflow-y:auto;
 }
 .panel-section{padding:0 16px 20px;border-bottom:1px solid #eee;margin-bottom:20px}
-.panel-label{font-size:12px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:14px;font-family:'Arial Narrow',Arial,sans-serif}
+.panel-label{font-size:13px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:14px;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;}
 
 /* 템플릿 이름 + 뱃지 */
 .template-era-badge{
   display:inline-block;padding:3px 8px;
   font-size:9px;letter-spacing:3px;text-transform:uppercase;
-  font-family:'Arial Narrow',Arial,sans-serif;margin-top:4px;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;margin-top:4px;
 }
 .template-era-badge.classic{background:#f0ede6;color:#888;}
 .template-era-badge.neue{background:#111;color:#f5f5f0;}
 
-.medium-btn{display:block;width:100%;text-align:left;padding:10px 14px;font-size:13px;letter-spacing:3px;text-transform:uppercase;border:1px solid #ddd;background:#f5f5f0;color:#555;cursor:pointer;margin-bottom:6px;font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;}
+.medium-btn{display:block;width:100%;text-align:left;padding:10px 14px;font-size:14px;letter-spacing:3px;text-transform:uppercase;border:1px solid #ddd;background:#f5f5f0;color:#555;cursor:pointer;margin-bottom:6px;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .15s;}
 .medium-btn:hover{border-color:#999;color:#111}
 .medium-btn.active{background:#111;color:#f5f5f0;border-color:#111}
 
 .expand-section{display:none;padding:0 16px;margin-bottom:20px}
 .expand-section.open{display:block}
-.era-btn{display:inline-block;padding:8px 14px;font-size:11px;letter-spacing:3px;text-transform:uppercase;border:1px solid #ddd;background:transparent;color:#888;cursor:pointer;margin:4px 4px 4px 0;font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;}
+.era-btn{display:inline-block;padding:8px 14px;font-size:12px;letter-spacing:3px;text-transform:uppercase;border:1px solid #ddd;background:transparent;color:#888;cursor:pointer;margin:4px 4px 4px 0;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .15s;}
 .era-btn:hover{border-color:#999;color:#111}
 .era-btn.active{background:#c8001e;color:#f5f5f0;border-color:#c8001e}
 
 .preset-grid{margin-top:14px;display:block}
-.preset-btn{display:block;width:100%;text-align:left;padding:10px 14px;font-size:13px;letter-spacing:3px;text-transform:uppercase;border:1px solid #ddd;background:#f5f5f0;color:#555;cursor:pointer;margin-bottom:6px;font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;}
+.preset-btn{display:block;width:100%;text-align:left;padding:10px 14px;font-size:14px;letter-spacing:3px;text-transform:uppercase;border:1px solid #ddd;background:#f5f5f0;color:#555;cursor:pointer;margin-bottom:6px;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .15s;}
 .preset-btn:hover{border-color:#999;color:#111}
 .preset-btn.active{background:#111;color:#f5f5f0;border-color:#111}
 
 /* Custom Props */
 .prop-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.prop-row label{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#888;font-family:'Arial Narrow',Arial,sans-serif;}
-.prop-row select{width:115px;padding:6px;font-size:12px;font-family:'Arial Narrow',Arial,sans-serif;border:1px solid #ddd;background:#fff;outline:none;}
+.prop-row label{font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#888;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;}
+.prop-row select{width:115px;padding:6px;font-size:13px;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;border:1px solid #ddd;background:#fff;outline:none;}
 .align-btns{display:flex;gap:4px;}
-.align-btns button{padding:6px 12px;font-size:12px;border:1px solid #ddd;background:#fff;cursor:pointer;font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;}
+.align-btns button{padding:6px 12px;font-size:13px;border:1px solid #ddd;background:#fff;cursor:pointer;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .15s;}
 .align-btns button.active{background:#111;color:#fff;border-color:#111;}
 
 /* Sliders */
 .scale-section{padding:0 16px;margin-top:12px}
 .scale-row{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
 .scale-row-top{display:flex;align-items:center;justify-content:space-between}
-.scale-row label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#888;font-family:'Arial Narrow',Arial,sans-serif}
-.scale-val{font-size:12px;color:#555;font-family:'Arial Narrow',Arial,sans-serif}
+.scale-row label{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#888;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;}
+.scale-val{font-size:13px;color:#555;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;}
 .scale-row input[type=range]{width:100%;height:2px;accent-color:#111;cursor:pointer;}
 
 /* Box palette */
-.box-palette-hint{font-size:11px;color:#ccc;letter-spacing:2px;text-transform:uppercase;font-family:'Arial Narrow',Arial,sans-serif;margin-bottom:10px;}
+.box-palette-hint{font-size:11px;color:#ccc;letter-spacing:2px;text-transform:uppercase;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;margin-bottom:10px;}
 .box-palette-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .box-palette-item{min-height:70px;border:1px solid #ddd;background:#f5f5f0;color:#555;cursor:grab;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px;transition:all .15s;}
 .box-palette-item:hover{border-color:#999;background:#fff;color:#111;transform:translateY(-1px);}
 .box-palette-item:active{cursor:grabbing}
 .box-palette-shape{background:rgba(120,120,120,.3);border:1px solid rgba(120,120,120,.6);flex-shrink:0;}
-.box-palette-item span{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:'Arial Narrow',Arial,sans-serif;white-space:nowrap;}
+.box-palette-item span{font-size:12px;letter-spacing:2px;text-transform:uppercase;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;white-space:nowrap;}
 /* 이미 종이 위로 올린 박스 표시: 사각형을 35% 투명도로 칠하고 항목을 흐리게 */
 .box-palette-item.used{
   opacity:.6;border-color:#bbb;
@@ -427,7 +425,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 
 
 /* Upload */
-.upload-area{border:1px dashed #bbb;padding:16px 10px;text-align:center;cursor:pointer;margin-bottom:10px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#888;transition:all .2s;font-family:'Arial Narrow',Arial,sans-serif;background:rgba(0,0,0,0.02);}
+.upload-area{border:1px dashed #bbb;padding:16px 10px;text-align:center;cursor:pointer;margin-bottom:10px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#888;transition:all .2s;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;background:rgba(0,0,0,0.02);}
 .upload-area:hover{border-color:#111;color:#111;background:rgba(0,0,0,0.05);}
 #file-input{display:none}
 
@@ -440,14 +438,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 
 .img-block{background:#ddd;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .img-block img{width:100%;height:100%;object-fit:cover;pointer-events:none;}
-.img-block .placeholder{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#bbb;font-family:'Arial Narrow',Arial,sans-serif}
+.img-block .placeholder{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#bbb;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;}
 .text-block{padding:4px}
 .text-block div{outline:none;width:100%;height:100%;}
 .original-box-block{
   display:flex;align-items:center;justify-content:center;
   background:rgba(120,120,120,.25);color:#555;
-  font-size:10px;letter-spacing:2px;text-transform:uppercase;
-  font-family:'Arial Narrow',Arial,sans-serif;overflow:hidden;
+  font-size:12px;letter-spacing:2px;text-transform:uppercase;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;overflow:hidden;
   animation:box-pop .18s ease-out;
 }
 .original-box-block:hover,.original-box-block.dragging{
@@ -481,11 +479,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 .tpl-img-block.selected{box-shadow:0 0 0 1px #111;z-index:18;}
 .tpl-img-block.dragging{cursor:grabbing;z-index:20;}
 .tpl-img-block img{width:100%;height:100%;object-fit:cover;pointer-events:none;}
-.tpl-img-placeholder{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#bbb;font-family:'Arial Narrow',Arial,sans-serif;text-align:center;padding:8px;}
+.tpl-img-placeholder{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#bbb;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;text-align:center;padding:8px;}
 .tpl-img-block .dbl-hint{
   position:absolute;bottom:6px;right:6px;
   font-size:9px;letter-spacing:2px;text-transform:uppercase;
-  font-family:'Arial Narrow',Arial,sans-serif;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
   color:rgba(255,255,255,.7);background:rgba(0,0,0,.35);
   padding:3px 6px;pointer-events:none;opacity:0;
   transition:opacity .15s;
@@ -495,17 +493,17 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 /* 우측 패널: 선택 블록 속성 */
 .block-props{padding:0 16px;margin-top:16px;border-top:1px solid #eee;padding-top:16px;}
 .bp-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.bp-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#888;font-family:'Arial Narrow',Arial,sans-serif;}
-.bp-val{font-size:12px;color:#555;font-family:'Arial Narrow',Arial,sans-serif;}
-.bp-input{width:80px;padding:4px 6px;font-size:12px;font-family:'Arial Narrow',Arial,sans-serif;border:1px solid #ddd;background:#fff;outline:none;}
-.bp-select{width:130px;padding:5px;font-size:11px;font-family:'Arial Narrow',Arial,sans-serif;border:1px solid #ddd;background:#fff;outline:none;}
+.bp-label{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#888;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;}
+.bp-val{font-size:13px;color:#555;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;}
+.bp-input{width:80px;padding:4px 6px;font-size:13px;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;border:1px solid #ddd;background:#fff;outline:none;}
+.bp-select{width:130px;padding:5px;font-size:11px;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;border:1px solid #ddd;background:#fff;outline:none;}
 .bp-align{display:flex;gap:3px;}
-.bp-align button{padding:5px 10px;font-size:11px;border:1px solid #ddd;background:#fff;cursor:pointer;font-family:'Arial Narrow',Arial,sans-serif;transition:all .12s;}
+.bp-align button{padding:5px 10px;font-size:11px;border:1px solid #ddd;background:#fff;cursor:pointer;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .12s;}
 .bp-align button.active{background:#111;color:#fff;border-color:#111;}
 .bp-slider{width:100%;height:2px;accent-color:#111;cursor:pointer;margin-top:4px;}
-.bp-img-replace{display:block;width:100%;text-align:center;padding:8px;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-family:'Arial Narrow',Arial,sans-serif;border:1px solid #ddd;background:#fff;cursor:pointer;color:#555;transition:all .15s;margin-bottom:8px;}
+.bp-img-replace{display:block;width:100%;text-align:center;padding:8px;font-size:12px;letter-spacing:3px;text-transform:uppercase;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;border:1px solid #ddd;background:#fff;cursor:pointer;color:#555;transition:all .15s;margin-bottom:8px;}
 .bp-img-replace:hover{border-color:#111;color:#111;}
-.bp-delete{display:block;width:100%;text-align:center;padding:8px;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-family:'Arial Narrow',Arial,sans-serif;border:1px solid #ffaaaa;background:#fff;cursor:pointer;color:#c8001e;transition:all .15s;}
+.bp-delete{display:block;width:100%;text-align:center;padding:8px;font-size:12px;letter-spacing:3px;text-transform:uppercase;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;border:1px solid #ffaaaa;background:#fff;cursor:pointer;color:#c8001e;transition:all .15s;}
 .bp-delete:hover{background:#c8001e;color:#fff;border-color:#c8001e;}
 
 /* Grid lines */
@@ -536,7 +534,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 }
 .original-work-preview-placeholder {
   text-align: center;
-  font-family: 'Arial Narrow', Arial, sans-serif;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
   font-size: 11px;
   color: #888;
   letter-spacing: 1px;
@@ -549,10 +547,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
   object-fit: contain;
 }
 .original-work-meta {
-  font-family: Georgia, serif;
+  font-family:'Cormorant Garamond', 'Noto Serif KR', Georgia, 'Times New Roman', serif;
 }
 .original-work-rules {
-  font-family: 'Arial Narrow', Arial, sans-serif;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
   border-radius: 2px;
 }
 .original-work-rules ul {
@@ -626,7 +624,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
   font-size: 11px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  font-family: 'Arial Narrow', Arial, sans-serif;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(8px);
@@ -652,6 +650,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
   background: #f5f5f0; /* 얀 치홀트 종이 질감 */
   box-sizing: border-box;
   scroll-behavior: smooth;
+  font-family: 'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
 }
 
 .ms-intro {
@@ -674,8 +673,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
   animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.ms-intro-quote {
-  font-family: Georgia, 'Times New Roman', serif;
+.ms-intro-quote{font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
   font-style: italic;
   font-size: clamp(18px, 2.8vw, 28px);
   line-height: 1.45;
@@ -693,10 +691,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
   margin: 0 auto 28px;
 }
 
-.ms-intro-paragraphs {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 14px;
-  line-height: 1.8;
+.ms-intro-paragraphs{font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
+  font-size: 15.5px;
+  line-height: 1.85;
   color: #555;
   max-width: 620px;
   margin: 0 auto;
@@ -713,8 +710,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 }
 
 .ms-intro-paragraphs strong {
-  font-family: 'Arial Narrow', Arial, sans-serif;
-  font-weight: 900;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
+  font-weight: bold;
   color: #111;
   font-size: 14.5px;
   letter-spacing: 0.5px;
@@ -747,7 +744,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 }
 
 .ms-scroll-text {
-  font-family: 'Arial Narrow', Arial, sans-serif;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
   font-size: 9px;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -788,7 +785,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 }
 
 .ms-sup {
-  font-family: 'Arial Narrow', Arial, sans-serif;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
   font-size: 11px;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -797,12 +794,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 }
 
 .ms-title {
-  font-family: 'Georgia', serif;
-  font-weight: normal;
-  font-size: 32px;
+  font-family: 'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
+  font-weight: 400;
+  font-size: 34px;
   color: #111;
   margin: 0 0 24px 0;
-  letter-spacing: -0.5px;
+  letter-spacing: -1px;
 }
 
 .ms-rule {
@@ -855,8 +852,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 }
 
 .msc-tag {
-  font-family: 'Arial Narrow', Arial, sans-serif;
-  font-size: 10px;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
+  font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #c8001e;
@@ -865,24 +862,25 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 }
 
 .msc-title {
-  font-family: 'Georgia', serif;
-  font-size: 22px;
-  font-weight: normal;
+  font-family: 'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
+  font-size: 25px;
+  font-weight: 400;
   color: #111;
   margin: 0 0 16px 0;
+  letter-spacing: -0.5px;
 }
 
 .msc-desc {
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.65;
   color: #666;
   margin: 0 0 32px 0;
   flex-grow: 1;
 }
 
 .msc-btn {
-  font-family: 'Arial Narrow', Arial, sans-serif;
-  font-size: 11px;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
+  font-size: 12px;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #111;
@@ -918,6 +916,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 }
 
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Jost:ital,wght@0,100..900;1,100..900&family=Noto+Serif+KR:wght@200..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 </head>
 <body>
 
@@ -1099,7 +1103,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
           <div class="scale-section" style="margin-top:16px">
             <div class="panel-label">속성 편집</div>
             <div id="tplPropertiesContainer">
-              <div style="font-size:11px;color:#ccc;letter-spacing:2px;text-transform:uppercase;font-family:'Arial Narrow',Arial,sans-serif;padding:0 16px">블록을 클릭해 속성 편집</div>
+              <div style="font-size:11px;color:#ccc;letter-spacing:2px;text-transform:uppercase;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;padding:0 16px">블록을 클릭해 속성 편집</div>
             </div>
           </div>
         </div>
@@ -1388,10 +1392,10 @@ const GALLERY_TEMPLATES = [
     ],
     blocks:[
       {type:'text',x:.04,y:.03,w:.72,h:.06,
-       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:32px;font-weight:900;letter-spacing:-1px;line-height:.8;color:#111;text-transform:uppercase;',
+       style:'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:32px;font-weight:700;letter-spacing:-1px;line-height:.8;color:#111;text-transform:uppercase;',
        content:'DIE FRAU OHNE NAMEN'},
       {type:'text',x:.21,y:.095,w:.45,h:.04,
-       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:14px;font-weight:bold;letter-spacing:1px;color:#c8001e;text-transform:uppercase;',
+       style:'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:14px;font-weight:bold;letter-spacing:1px;color:#c8001e;text-transform:uppercase;',
        content:'ZWEITER TEIL'},
       {type:'img',x:.08,y:.18,w:.35,h:.32},
       {type:'text',x:.03,y:.49,w:.54,h:.405,
@@ -1402,16 +1406,16 @@ const GALLERY_TEMPLATES = [
       {type:'img',x:.66,y:.28,w:.11,h:.08},
       {type:'img',x:.45,y:.39,w:.25,h:.15},
       {type:'text',x:.60,y:.80,w:.36,h:.03,
-       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:6px;font-weight:bold;letter-spacing:0.5px;color:#333;text-transform:uppercase;',
+       style:'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:6px;font-weight:bold;letter-spacing:0.5px;color:#333;text-transform:uppercase;',
        content:'GEORG JACOBYS WELTREISEFILM'},
       {type:'text',x:.60,y:.84,w:.36,h:.04,
-       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:16px;font-weight:900;letter-spacing:1px;color:#111;text-transform:uppercase;',
+       style:'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:16px;font-weight:700;letter-spacing:1px;color:#111;text-transform:uppercase;',
        content:'PHOEBUS-PALAST'},
       {type:'text',x:.60,y:.89,w:.36,h:.05,
-       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:5.5px;font-weight:bold;color:#444;text-transform:uppercase;line-height:1.2;',
+       style:'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:5.5px;font-weight:bold;color:#444;text-transform:uppercase;line-height:1.2;',
        content:'ANFANGSZEITEN: 4, 6:15, 8:30\nSONNTAGS: 1:45, 4, 6:15, 8:30'},
       {type:'text',x:.04,y:.96,w:.80,h:.03,
-       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:5px;font-weight:bold;color:#666;text-transform:uppercase;',
+       style:'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:5px;font-weight:bold;color:#666;text-transform:uppercase;',
        content:'ENTWURF: JAN TSCHICHOLD, MÜNCHEN · DRUCK: GEBR. OBPACHER A.G. MÜNCHEN'}
     ]
   },
@@ -1439,14 +1443,14 @@ const GALLERY_TEMPLATES = [
     ],
     blocks:[
       {type:'text',x:.04,y:.04,w:.28,h:.56,
-       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:48px;font-weight:900;letter-spacing:-3px;line-height:.82;color:#111;',
+       style:'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:48px;font-weight:700;letter-spacing:-3px;line-height:.82;color:#111;',
        content:'DIE\nNEUE\nTYPE'},
       {type:'img', x:.36,y:.04,w:.6, h:.44},
       {type:'text',x:.36,y:.51,w:.6,h:.05,
-       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:8px;letter-spacing:6px;text-transform:uppercase;color:#c8001e;',
+       style:'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:8px;letter-spacing:6px;text-transform:uppercase;color:#c8001e;',
        content:'Berlin · 1928 · Jan Tschichold'},
       {type:'text',x:.36,y:.58,w:.6,h:.08,
-       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:9px;line-height:1.7;color:#555;letter-spacing:.5px;',
+       style:'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:9px;line-height:1.7;color:#555;letter-spacing:.5px;',
        content:'Form follows function. Der Zweck bestimmt die Form.'},
       {type:'img', x:.04,y:.7, w:.44,h:.22},
       {type:'img', x:.52,y:.7, w:.44,h:.22},
@@ -1479,25 +1483,25 @@ const GALLERY_TEMPLATES = [
     ],
     blocks:[
       {type:'text',x:.04,y:.03,w:.35,h:.04,
-       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:8px;letter-spacing:6px;text-transform:uppercase;color:#c8001e;',
+       style:'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:8px;letter-spacing:6px;text-transform:uppercase;color:#c8001e;',
        content:'Grid / Module / System'},
       {type:'img', x:.04,y:.08,w:.44,h:.24},
       {type:'text',x:.52,y:.08,w:.44,h:.12,
-       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:26px;font-weight:900;letter-spacing:-1px;line-height:.85;color:#111;',
+       style:'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:26px;font-weight:700;letter-spacing:-1px;line-height:.85;color:#111;',
        content:'FORM\nFOLLOWS'},
       {type:'text',x:.52,y:.22,w:.44,h:.09,
-       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:8px;line-height:1.7;color:#666;letter-spacing:.3px;',
+       style:'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:8px;line-height:1.7;color:#666;letter-spacing:.3px;',
        content:'Ratio / Signal / Grid'},
       {type:'text',x:.04,y:.36,w:.28,h:.28,
-       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:9px;line-height:1.8;color:#444;',
+       style:'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:9px;line-height:1.8;color:#444;',
        content:'Das Raster ist das unsichtbare Gerüst jeder Komposition.'},
       {type:'img', x:.36,y:.36,w:.28,h:.28},
       {type:'img', x:.68,y:.36,w:.28,h:.28},
       {type:'text',x:.04,y:.71,w:.92,h:.05,
-       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:8px;letter-spacing:5px;text-transform:uppercase;color:#c8001e;',
+       style:'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:8px;letter-spacing:5px;text-transform:uppercase;color:#c8001e;',
        content:'Tschichold · Bauhaus · 1928'},
       {type:'text',x:.04,y:.79,w:.44,h:.14,
-       style:'font-family:"Arial Narrow",Arial,sans-serif;font-size:8px;line-height:1.8;color:#555;',
+       style:'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:8px;line-height:1.8;color:#555;',
        content:'Typographie ist keine Kunst des Ausdrucks, sondern eine Disziplin의 Ordnung.'},
       {type:'img', x:.52,y:.79,w:.44,h:.14},
     ]
@@ -1525,17 +1529,17 @@ const GALLERY_TEMPLATES = [
     ],
     blocks:[
       {type:'text',x:.1,y:.05,w:.8,h:.1,
-       style:'font-family:Georgia,serif;font-size:22px;font-style:italic;color:#111;line-height:1.2;text-align:center;',
+       style:'font-family:\"Cormorant Garamond\", \"Noto Serif KR\", Georgia, \"Times New Roman\", serif;font-size:22px;font-style:italic;color:#111;line-height:1.2;text-align:center;',
        content:'Typographia\nStudies'},
       {type:'text',x:.1,y:.17,w:.8,h:.05,
-       style:'font-family:Georgia,serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#888;text-align:center;',
+       style:'font-family:\"Cormorant Garamond\", \"Noto Serif KR\", Georgia, \"Times New Roman\", serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#888;text-align:center;',
        content:'Basel · Est. 1892'},
       {type:'img',x:.18,y:.24,w:.64,h:.38},
       {type:'text',x:.12,y:.65,w:.76,h:.08,
-       style:'font-family:Georgia,serif;font-size:11px;line-height:1.7;color:#555;text-align:center;',
+       style:'font-family:\"Cormorant Garamond\", \"Noto Serif KR\", Georgia, \"Times New Roman\", serif;font-size:11px;line-height:1.7;color:#555;text-align:center;',
        content:'Ordo et proportio in pagina\nest fundamentum artis'},
       {type:'text',x:.2,y:.87,w:.6,h:.05,
-       style:'font-family:Georgia,serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#bbb;text-align:center;',
+       style:'font-family:\"Cormorant Garamond\", \"Noto Serif KR\", Georgia, \"Times New Roman\", serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#bbb;text-align:center;',
        content:'ARCHIVE · III'},
     ]
   },
@@ -1561,15 +1565,15 @@ const GALLERY_TEMPLATES = [
     ],
     blocks:[
       {type:'text',x:.06,y:.04,w:.6,h:.14,
-       style:'font-family:Georgia,serif;font-size:24px;font-style:italic;color:#111;line-height:1.1;',
+       style:'font-family:\"Cormorant Garamond\", \"Noto Serif KR\", Georgia, \"Times New Roman\", serif;font-size:24px;font-style:italic;color:#111;line-height:1.1;',
        content:'Gutenberg\nGalerie'},
       {type:'img', x:.06,y:.2, w:.32,h:.52},
       {type:'text',x:.42,y:.2, w:.52,h:.22,
-       style:'font-family:Georgia,serif;font-size:9px;line-height:1.9;color:#555;',
+       style:'font-family:\"Cormorant Garamond\", \"Noto Serif KR\", Georgia, \"Times New Roman\", serif;font-size:9px;line-height:1.9;color:#555;',
        content:'Der Buchdruck ist die größte Erfindung der Neuzeit und Mutter aller Künste.'},
       {type:'img', x:.42,y:.46,w:.52,h:.3},
       {type:'text',x:.06,y:.79,w:.88,h:.05,
-       style:'font-family:Georgia,serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#bbb;',
+       style:'font-family:\"Cormorant Garamond\", \"Noto Serif KR\", Georgia, \"Times New Roman\", serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#bbb;',
        content:'SCHRIFT · KUNST · HANDWERK'},
     ]
   },
@@ -1597,18 +1601,18 @@ const GALLERY_TEMPLATES = [
     ],
     blocks:[
       {type:'text',x:.05,y:.04,w:.9,h:.06,
-       style:'font-family:Georgia,serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:#888;text-align:center;',
+       style:'font-family:\"Cormorant Garamond\", \"Noto Serif KR\", Georgia, \"Times New Roman\", serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:#888;text-align:center;',
        content:'THE TYPOGRAPHIC REVIEW'},
       {type:'img', x:.05,y:.13,w:.28,h:.38},
       {type:'text',x:.05,y:.54,w:.28,h:.22,
-       style:'font-family:Georgia,serif;font-size:8px;line-height:1.9;color:#555;',
+       style:'font-family:\"Cormorant Garamond\", \"Noto Serif KR\", Georgia, \"Times New Roman\", serif;font-size:8px;line-height:1.9;color:#555;',
        content:'Die Schrift ist das Abbild의 Sprache. Ihre Form bestimmt, wie wir lesen und denken.'},
       {type:'text',x:.37,y:.13,w:.26,h:.62,
-       style:'font-family:Georgia,serif;font-size:9px;line-height:1.8;color:#333;',
+       style:'font-family:\"Cormorant Garamond\", \"Noto Serif KR\", Georgia, \"Times New Roman\", serif;font-size:9px;line-height:1.8;color:#333;',
        content:'Typographie ist Gestaltung von Schrift im Raum. Sie ordnet, sie gliedert, sie führt den Blick.'},
       {type:'img', x:.67,y:.13,w:.28,h:.38},
       {type:'text',x:.67,y:.54,w:.28,h:.22,
-       style:'font-family:Georgia,serif;font-size:8px;line-height:1.9;color:#555;',
+       style:'font-family:\"Cormorant Garamond\", \"Noto Serif KR\", Georgia, \"Times New Roman\", serif;font-size:8px;line-height:1.9;color:#555;',
        content:'Jede Schriftform trägt eine Geschichte. Garamond, Bodoni, Caslon — Namen, die Zeit überdauern.'},
     ]
   },
@@ -1941,6 +1945,11 @@ function openTemplateDirect(id){
   if(!tpl) return;
   currentTemplate = tpl;
 
+  const templateGuideOpenBtn = document.getElementById('templateGuideOpenBtn');
+  if (templateGuideOpenBtn) {
+    templateGuideOpenBtn.style.left = '140px';
+  }
+
   // 화면 전환
   document.getElementById('galleryScreen').style.display = 'none';
   document.getElementById('editScreen').style.display   = 'flex';
@@ -2026,7 +2035,7 @@ function createTplBlock(bd, cw, ch){
     const inner = document.createElement('div');
     inner.contentEditable = 'true';
     inner.spellcheck = false;
-    inner.style.cssText = (bd.style || 'font-family:"Arial Narrow",Arial,sans-serif;font-size:14px;color:#111;') +
+    inner.style.cssText = (bd.style || 'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:14px;color:#111;') +
       'outline:none;width:100%;min-height:100%;white-space:pre-wrap;word-break:break-word;';
     inner.textContent = (bd.content !== undefined) ? bd.content : '텍스트를 입력하세요';
     inner.addEventListener('focus', ()=>{ if(inner.textContent === '텍스트를 입력하세요' || inner.textContent === 'Enter text') inner.textContent=''; });
@@ -2334,7 +2343,10 @@ function setMode(m){
   const templateGuideOpenBtn = document.getElementById('templateGuideOpenBtn');
 
   if (m==='template'){
-    if(templateGuideOpenBtn) templateGuideOpenBtn.style.display = 'block';
+    if(templateGuideOpenBtn) {
+      templateGuideOpenBtn.style.display = 'block';
+      templateGuideOpenBtn.style.left = '';
+    }
     // [템플릿 모드]: 템플릿 갤러리 활성화
     document.getElementById('galleryScreen').style.display='flex';
     document.getElementById('editScreen').style.display='none';
@@ -2546,37 +2558,54 @@ function zoomStep(direction){
 }
 
 function applyZoomInput(){
-  const el=document.getElementById('zoomValue');if(!el)return;
-  el.contentEditable = "false";
-  const val=parseInt(el.textContent);
-  if(!isNaN(val)&&val>0) {
-    setZoomLevel(val);
-  } else {
-    updateZoomDisplay();
-  }
-}
-
-// zoomValue 더블클릭 시 직접 편집 가능하도록 이벤트 바인딩
-(function initZoomValueDblClick(){
   const el = document.getElementById('zoomValue');
   if(!el) return;
-  el.addEventListener('dblclick', () => {
-    el.contentEditable = "true";
-    
-    // % 기호를 떼고 숫자만 보여주어 편집하기 편하도록 가공
-    let text = el.textContent.trim();
-    if(text.endsWith('%')) {
-      text = text.substring(0, text.length - 1);
-      el.textContent = text;
+  
+  el.contentEditable = "false";
+  const text = el.textContent.trim();
+  let val = parseInt(text);
+  
+  if(isNaN(val) || val <= 0){
+    val = Math.round(zoomScale * 100);
+  } else {
+    if(val < 25) val = 25;
+    if(val > 500) val = 500;
+  }
+  
+  setZoomLevel(val);
+}
+
+// 줌 수치 수동 입력 바인딩 초기화
+(function initZoomInputInteraction() {
+  const el = document.getElementById('zoomValue');
+  if (!el) return;
+
+  el.contentEditable = "false";
+
+  el.addEventListener('dblclick', function() {
+    this.contentEditable = "true";
+    let currentText = this.textContent.trim();
+    if (currentText.endsWith('%')) {
+      this.textContent = currentText.slice(0, -1);
     }
-    el.focus();
+    this.focus();
     
-    // 전체 텍스트 자동 선택
     const range = document.createRange();
-    range.selectNodeContents(el);
+    range.selectNodeContents(this);
     const sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
+  });
+
+  el.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      this.blur();
+    }
+  });
+
+  el.addEventListener('blur', function() {
+    applyZoomInput();
   });
 })();
 
@@ -2601,7 +2630,43 @@ function setModeAndResetZoom(m){
 }
 
 function downloadCanvas(){
-  alert('완성된 레이아웃을 저장하려면 브라우저 스크린샷을 이용하세요.\n(배포 시 html2canvas 연동 권장)');
+  const canvasElement = document.getElementById('canvas');
+  if (!canvasElement) return;
+
+  // 1. 기존 transform 스타일 백업
+  const originalTransform = canvasElement.style.transform;
+  
+  // 2. 캡처를 위해 임시로 transform 리셋
+  canvasElement.style.transform = 'none';
+
+  // 3. html2canvas 로딩 확인
+  if (typeof html2canvas === 'undefined') {
+    alert('이미지 저장 라이브러(html2canvas)를 불러오는 중입니다. 잠시 후 다시 시도해 주세요.');
+    canvasElement.style.transform = originalTransform; // 복원
+    return;
+  }
+
+  // 4. 캡처 실행
+  html2canvas(canvasElement, {
+    scale: 2, // 2배 고해상도
+    useCORS: true, // CORS 이미지 허용
+    backgroundColor: '#ffffff', // 배경을 흰색으로 지정
+    logging: false
+  }).then(canvas => {
+    // 5. 다운로드 처리
+    const link = document.createElement('a');
+    link.download = 'tschichold-layout.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    
+    // 6. transform 복원
+    canvasElement.style.transform = originalTransform;
+  }).catch(err => {
+    console.error('이미지 저장 실패:', err);
+    alert('이미지 저장 중 오류가 발생했습니다.');
+    // 7. 오류 시에도 복원
+    canvasElement.style.transform = originalTransform;
+  });
 }
 
 /* ── 초기화 ── */
