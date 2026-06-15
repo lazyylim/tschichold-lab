@@ -7,13 +7,13 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 }
 .intro-modal.hide{display:none}
 .intro-guide{
-  position:absolute;top:60px;left:16px;width:348px;
+  position:absolute;top:auto;bottom:16px;left:16px;width:348px;
   color:#111;
   background:
     linear-gradient(180deg,rgba(255,255,252,.98),rgba(241,240,234,.98));
   border:1px solid rgba(17,17,17,.22);
   padding:0;
-  font-family:'Arial Narrow',Arial,sans-serif;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
   box-shadow:0 18px 44px rgba(0,0,0,.18),0 1px 0 rgba(255,255,255,.7) inset;
   pointer-events:auto;
   backdrop-filter:blur(6px);
@@ -35,20 +35,20 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
   width:28px;height:28px;border:1px solid rgba(17,17,17,.18);
   background:rgba(255,255,252,.75);color:#555;
   font-size:17px;line-height:17px;cursor:pointer;
-  font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;display:flex;align-items:center;justify-content:center;
   transition:all .15s;
 }
 .intro-close:hover{background:#111;color:#f5f5f0;border-color:#111}
 .intro-copy{
-  margin:0;font-size:13px;line-height:1.55;
+  margin:0;font-size:14px;line-height:1.6;
   letter-spacing:1px;color:#57534d;
 }
 .intro-kicker{
-  margin:0 0 11px;font-size:11px;letter-spacing:3px;text-transform:uppercase;
-  color:#8b8780;font-family:'Arial Narrow',Arial,sans-serif;
+  margin:0 0 11px;font-size:12px;letter-spacing:3px;text-transform:uppercase;
+  color:#8b8780;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
 }
 .intro-title{
-  margin:0 0 11px;font-family:Georgia,serif;font-size:27px;font-weight:400;
+  margin:0 0 11px;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;font-size:28px;font-weight:400;
   line-height:1.15;font-style:italic;letter-spacing:1px;color:#111;white-space:nowrap;
 }
 .intro-progress{
@@ -94,7 +94,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 
 /* 3번 반영: 로고 폰트 확대 및 클릭 유도(커서 변경) */
 .topbar .logo{
-  font-family:Georgia,serif;font-size:16px;letter-spacing:3px;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;font-size:16px;letter-spacing:3px;
   text-transform:uppercase;color:#111;font-style:italic;
   cursor:pointer; transition: opacity 0.2s;
 }
@@ -104,9 +104,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 
 /* 3번 반영: 모드 변경 버튼 폰트 확대 */
 .tb-btn{
-  padding:8px 20px;font-size:13px;letter-spacing:3px;text-transform:uppercase;
+  padding:8px 20px;font-size:14px;letter-spacing:3px;text-transform:uppercase;
   border:1px solid transparent;background:transparent;cursor:pointer;color:#888;
-  font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .15s;
 }
 .tb-btn:hover{color:#111;border-color:#ccc}
 .tb-btn.active{color:#111;border-color:#111}
@@ -128,17 +128,17 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 /* 3번 반영: 캔버스 내부 버튼 폰트 확대 */
 .compare-btn{
   position:absolute;top:16px;left:16px;z-index:15;
-  height:32px;padding:0 15px;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  height:32px;padding:0 15px;font-size:12px;letter-spacing:3px;text-transform:uppercase;
   border:1px solid #111;background:rgba(245,245,240,.94);cursor:pointer;
-  font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .15s;
   box-shadow:0 3px 10px rgba(0,0,0,.08);
 }
 .compare-btn:hover,.compare-btn.on{background:#111;color:#f5f5f0}
 .guide-open-btn{
   position:absolute;top:16px;left:124px;z-index:15;
-  height:32px;padding:0 15px;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  height:32px;padding:0 15px;font-size:12px;letter-spacing:3px;text-transform:uppercase;
   border:1px solid #111;background:rgba(245,245,240,.94);cursor:pointer;
-  font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .15s;
   box-shadow:0 3px 10px rgba(0,0,0,.08);
 }
 .guide-open-btn:hover,.guide-open-btn.on{background:#111;color:#f5f5f0}
@@ -148,7 +148,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
   background:rgba(245,245,240,.96);
   border:1px solid rgba(17,17,17,.28);
   box-shadow:0 8px 24px rgba(0,0,0,.14);
-  font-family:'Arial Narrow',Arial,sans-serif;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
 }
 .reference-preview.hide{display:none}
 .reference-preview-frame{
@@ -167,16 +167,16 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 }
 .dl-btn{
   position:absolute;bottom:16px;right:16px;z-index:15;
-  padding:8px 16px;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  padding:8px 16px;font-size:12px;letter-spacing:3px;text-transform:uppercase;
   border:1px solid #111;background:#f5f5f0;cursor:pointer;
-  font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .15s;
 }
 .dl-btn:hover{background:#111;color:#f5f5f0}
 
 /* ── 4. 줌 박스 (좌하단) ── */
 .zoom-box{
   position:absolute;bottom:16px;left:16px;z-index:15;
-  font-family:'Arial Narrow',Arial,sans-serif;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
   user-select:none;
 }
 .zoom-main{
@@ -184,11 +184,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
   border:1px solid #bbb;background:#f5f5f0;
   height:28px;
 }
-.zoom-value{
-  display:inline-block;min-width:44px;text-align:center;
-  font-size:11px;letter-spacing:2px;color:#555;
-  padding:0 8px;outline:none;cursor:text;line-height:26px;
-}
+.zoom-value{display:inline-block;min-width:44px;text-align:center;font-size:12px;letter-spacing:2px;color:#555;padding:0 8px;outline:none;cursor:text;line-height:26px;user-select:text;-webkit-user-select:text;}
 .zoom-value:focus{background:#fff;color:#111;}
 .zoom-arrows{
   display:flex;flex-direction:column;border-left:1px solid #bbb;
@@ -210,8 +206,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 }
 .zoom-dropdown button{
   display:block;width:100%;text-align:left;
-  padding:6px 10px;font-size:11px;letter-spacing:2px;
-  font-family:'Arial Narrow',Arial,sans-serif;
+  padding:6px 10px;font-size:12px;letter-spacing:2px;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
   border:none;background:transparent;cursor:pointer;color:#555;
   transition:background .12s;
 }
@@ -226,14 +222,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 .panel-section{padding:0 16px 14px;border-bottom:1px solid #eee;margin-bottom:14px}
 
 /* 3번 반영: 패널 소제목 폰트 확대 */
-.panel-label{font-size:12px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;font-family:'Arial Narrow',Arial,sans-serif}
+.panel-label{font-size:13px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;}
 
 /* 3번 반영: 매체 선택 버튼 폰트 확대 */
 .medium-btn{
   display:block;width:100%;text-align:left;
-  padding:8px 14px;font-size:13px;letter-spacing:3px;text-transform:uppercase;
+  padding:8px 14px;font-size:14px;letter-spacing:3px;text-transform:uppercase;
   border:1px solid #ddd;background:#f5f5f0;color:#555;cursor:pointer;margin-bottom:6px;
-  font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .15s;
 }
 .medium-btn:hover{border-color:#999;color:#111}
 .medium-btn.active{background:#111;color:#f5f5f0;border-color:#111}
@@ -243,10 +239,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 
 /* 3번 반영: 시대 선택 버튼 폰트 확대 */
 .era-btn{
-  display:inline-block;padding:7px 14px;font-size:11px;letter-spacing:3px;
+  display:inline-block;padding:7px 14px;font-size:12px;letter-spacing:3px;
   text-transform:uppercase;border:1px solid #ddd;background:transparent;
   color:#888;cursor:pointer;margin:4px 4px 4px 0;
-  font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .15s;
 }
 .era-btn:hover{border-color:#999;color:#111}
 .era-btn.active{background:#c8001e;color:#f5f5f0;border-color:#c8001e}
@@ -271,9 +267,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 .preset-grid{margin-top:10px;display:block}
 .preset-btn{
   display:block;width:100%;text-align:left;
-  padding:8px 14px;font-size:13px;letter-spacing:3px;text-transform:uppercase;
+  padding:8px 14px;font-size:14px;letter-spacing:3px;text-transform:uppercase;
   border:1px solid #ddd;background:#f5f5f0;color:#555;cursor:pointer;margin-bottom:6px;
-  font-family:'Arial Narrow',Arial,sans-serif;transition:all .15s;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;transition:all .15s;
 }
 .preset-btn:hover{border-color:#999;color:#111}
 .preset-btn.active{background:#111;color:#f5f5f0;border-color:#111}
@@ -285,12 +281,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 .scale-row{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
 .scale-row-top{display:flex;align-items:center;justify-content:space-between}
 /* 3번 반영: 슬라이더 텍스트 폰트 확대 */
-.scale-row label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#888;font-family:'Arial Narrow',Arial,sans-serif}
-.scale-val{font-size:12px;color:#555;font-family:'Arial Narrow',Arial,sans-serif}
+.scale-row label{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#888;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;}
+.scale-val{font-size:13px;color:#555;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;}
 .scale-row input[type=range]{width:100%;height:2px;accent-color:#111;cursor:pointer;}
 .box-palette-hint{
-  font-size:11px;color:#888;letter-spacing:2px;text-transform:uppercase;
-  font-family:'Arial Narrow',Arial,sans-serif;margin-bottom:8px;
+  font-size:12px;color:#888;letter-spacing:2px;text-transform:uppercase;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;margin-bottom:8px;
 }
 .box-palette-grid{
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;overflow:hidden;
@@ -322,8 +318,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 }
 .box-palette-item span{
   display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;
-  font-size:9px;letter-spacing:1px;text-transform:uppercase;text-align:center;
-  font-family:'Arial Narrow',Arial,sans-serif;white-space:nowrap;
+  font-size:10px;letter-spacing:1px;text-transform:uppercase;text-align:center;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;white-space:nowrap;
 }
 /* 이미 종이 위로 올린 박스 표시: 사각형을 35% 투명도로 칠하고 항목을 흐리게 */
 .box-palette-item.used{
@@ -344,14 +340,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 
 .img-block{background:#ddd;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .img-block img{width:100%;height:100%;object-fit:cover;pointer-events:none;} 
-.img-block .placeholder{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#bbb;font-family:'Arial Narrow',Arial,sans-serif}
+.img-block .placeholder{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#bbb;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;}
 .text-block{padding:4px}
 .text-block div{outline:none; width:100%; height:100%;}
 .original-box-block{
   display:flex;align-items:center;justify-content:center;
   background:rgba(120,120,120,.25);color:#555;
-  font-size:10px;letter-spacing:2px;text-transform:uppercase;
-  font-family:'Arial Narrow',Arial,sans-serif;overflow:hidden;
+  font-size:12px;letter-spacing:2px;text-transform:uppercase;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;overflow:hidden;
   animation:box-pop .18s ease-out;
 }
 .original-box-block:hover,.original-box-block.dragging{
