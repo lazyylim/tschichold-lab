@@ -10,6 +10,12 @@
     .topbar { display: none !important; }
     .lab-body { height: 100% !important; }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Jost:ital,wght@0,100..900;1,100..900&family=Noto+Serif+KR:wght@200..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 </head>
 <body>
 
@@ -50,9 +56,7 @@
       <!-- 4. 줌 표시 박스 (좌하단) -->
       <div class="zoom-box" id="zoomBox">
         <div class="zoom-main">
-          <span class="zoom-value" id="zoomValue" contenteditable="true"
-            onblur="applyZoomInput()"
-            onkeydown="if(event.key==='Enter'){event.preventDefault();applyZoomInput();}">100%</span>
+          <span class="zoom-value" id="zoomValue" contenteditable="false">100%</span>
           <div class="zoom-arrows">
             <button class="zoom-arrow-btn" onclick="zoomStep('up')" title="확대">▲</button>
             <button class="zoom-arrow-btn" onclick="zoomStep('down')" title="축소">▼</button>
@@ -92,7 +96,7 @@
         </div>
         
         <div class="scale-section" id="mediumScaleSection" style="margin-top:16px">
-          <div id="sliderContainer"><div style="font-size:11px;color:#ccc;letter-spacing:2px;text-transform:uppercase;font-family:'Arial Narrow',Arial,sans-serif">매체를 선택하세요</div></div>
+          <div id="sliderContainer"><div style="font-size:11px;color:#ccc;letter-spacing:2px;text-transform:uppercase;font-family:'Jost', 'Pretendard', 'Arial Narrow', Arial, sans-serif;">매체를 선택하세요</div></div>
         </div>
       </div>
     </div><!-- right-panel -->
