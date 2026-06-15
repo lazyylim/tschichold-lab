@@ -826,8 +826,19 @@ function zoomStep(direction){
 function applyZoomInput(){
   const el = document.getElementById('zoomValue');
   if(!el) return;
-  const val = parseInt(el.textContent);
-  if(!isNaN(val) && val > 0) setZoomLevel(val);
+  
+  el.contentEditable = "false";
+  const text = el.textContent.trim();
+  let val = parseInt(text);
+  
+  if(isNaN(val) || val <= 0){
+    val = Math.round(zoomScale * 100);
+  } else {
+    if(val < 25) val = 25;
+    if(val > 500) val = 500;
+  }
+  
+  setZoomLevel(val);
 }
 
 /* 줌 드롭다운 토글 */
@@ -1267,7 +1278,43 @@ function renderSliders(blks){
 
 
 function downloadCanvas(){
-  alert('완성된 레이아웃을 저장하려면 브라우저 스크린샷을 이용하세요.\n(배포 시 html2canvas 연동 권장)');
+  const canvasElement = document.getElementById('canvas');
+  if (!canvasElement) return;
+
+  // 1. 기존 transform 스타일 백업
+  const originalTransform = canvasElement.style.transform;
+  
+  // 2. 캡처를 위해 임시로 transform 리셋
+  canvasElement.style.transform = 'none';
+
+  // 3. html2canvas 로딩 확인
+  if (typeof html2canvas === 'undefined') {
+    alert('이미지 저장 라이브러리(html2canvas)를 불러오는 중입니다. 잠시 후 다시 시도해 주세요.');
+    canvasElement.style.transform = originalTransform; // 복원
+    return;
+  }
+
+  // 4. 캡처 실행
+  html2canvas(canvasElement, {
+    scale: 2, // 2배 고해상도
+    useCORS: true, // CORS 이미지 허용
+    backgroundColor: '#ffffff', // 배경을 흰색으로 지정
+    logging: false
+  }).then(canvas => {
+    // 5. 다운로드 처리
+    const link = document.createElement('a');
+    link.download = 'tschichold-layout.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    
+    // 6. transform 복원
+    canvasElement.style.transform = originalTransform;
+  }).catch(err => {
+    console.error('이미지 저장 실패:', err);
+    alert('이미지 저장 중 오류가 발생했습니다.');
+    // 7. 오류 시에도 복원
+    canvasElement.style.transform = originalTransform;
+  });
 }
 
 document.addEventListener('keydown', (e) => {
@@ -1286,6 +1333,40 @@ document.addEventListener('keydown', (e) => {
     deleteActiveBlock();
   }
 });
+
+// 줌 수치 수동 입력 바인딩 초기화
+(function initZoomInputInteraction() {
+  const el = document.getElementById('zoomValue');
+  if (!el) return;
+
+  el.contentEditable = "false";
+
+  el.addEventListener('dblclick', function() {
+    this.contentEditable = "true";
+    let currentText = this.textContent.trim();
+    if (currentText.endsWith('%')) {
+      this.textContent = currentText.slice(0, -1);
+    }
+    this.focus();
+    
+    const range = document.createRange();
+    range.selectNodeContents(this);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  });
+
+  el.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      this.blur();
+    }
+  });
+
+  el.addEventListener('blur', function() {
+    applyZoomInput();
+  });
+})();
 
 // 초기 줌 표시 업데이트
 updateZoomDisplay();
