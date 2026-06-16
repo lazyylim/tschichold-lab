@@ -45,10 +45,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
   transition:clip-path 0s;
   user-select:none;
 }
-.ln-label{position:absolute;top:48px;left:64px;font-size:9px;letter-spacing:8px;color:#555;text-transform:uppercase;}
-.ln-title{font-size:clamp(64px,9vw,128px);font-weight:700;line-height:.85;letter-spacing:-4px;color:#f5f5f0;text-align:left;}
+.ln-label{position:absolute;top:48px;left:80px;font-size:11px;font-weight:bold;letter-spacing:5px;color:#bbb;text-transform:uppercase;}
+.ln-title{font-size:clamp(64px,9vw,128px);font-weight:700;line-height:.85;letter-spacing:-4px;color:#f5f5f0;text-align:left;width:max-content;}
 .ln-accent{width:0;height:3px;background:#c8001e;margin:28px auto 20px 0;transition:width .4s ease;}
-.ln-sub{font-size:9px;letter-spacing:6px;text-transform:uppercase;color:#c8001e;text-align:left;}
+.ln-sub{font-size:9px;letter-spacing:6px;text-transform:uppercase;color:#c8001e;text-align:left;width:max-content;}
 .ln-grid{position:absolute;inset:0;pointer-events:none;opacity:0.06;}
 
 .land-divider{position:absolute;top:0;bottom:0;width:1px;background:#c8001e;left:50%;transform:translateX(-50%);pointer-events:none;z-index:5;transition:left 0s;}
@@ -61,9 +61,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 
 .land-footer{position:absolute;bottom:40px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:48px;pointer-events:none;z-index:10;}
 .lf-left{font-family:\"Cormorant Garamond\", \"Noto Serif KR\", Georgia, \"Times New Roman\", serif;font-style:italic;font-size:14px;letter-spacing:3px;color:#888;pointer-events:none;}
-.lf-right{font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;font-size:13px;letter-spacing:5px;text-transform:uppercase;color:#555;pointer-events:none;}
+.lf-right{font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;font-size:13px;letter-spacing:5px;text-transform:uppercase;color:#777;pointer-events:none;}
 .land-cta{display:inline-block;padding:14px 44px;border:1px solid #c8001e;background:#c8001e;font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;font-size:13px;letter-spacing:6px;text-transform:uppercase;color:#fff;cursor:pointer;transition:all .25s;pointer-events:all;position:relative;z-index:11;}
-.land-cta:hover{background:transparent;color:#c8001e;border-color:#c8001e;}
+.land-cta:hover{background:rgba(255, 255, 255, 0.05);color:#c8001e;border-color:#c8001e;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
 
 /* ── LAB ── */
 #lab{position:fixed;inset:0;display:none;flex-direction:column;background:#f5f5f0}
@@ -468,7 +468,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 .tpl-text-block:hover{box-shadow:0 0 0 1px rgba(200,0,30,.35);}
 .tpl-text-block.selected{box-shadow:0 0 0 1px #111;z-index:18;}
 .tpl-text-block.dragging{cursor:grabbing;z-index:20;}
-.tpl-text-block [contenteditable]{outline:none;cursor:text;}
+.tpl-text-block [contenteditable]{outline:none;cursor:text;user-select:text;-webkit-user-select:text;}
 
 .tpl-img-block{
   position:absolute;cursor:grab;user-select:none;z-index:5;
@@ -547,7 +547,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
   object-fit: contain;
 }
 .original-work-meta {
-  font-family:'Cormorant Garamond', 'Noto Serif KR', Georgia, 'Times New Roman', serif;
+  font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
 }
 .original-work-rules {
   font-family:'Jost', 'Pretendard', 'Arial Narrow', sans-serif;
@@ -927,9 +927,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 
 <div id="landing">
 <div class="land-bg-classic" id="landBgClassic">
-    <div class="lc-title" style="font-size: clamp(48px, 6vw, 86px);">Die Neue Typographie</div>
+    <div class="lc-title" style="font-size: clamp(48px, 6vw, 86px);">Penguin Composition Rules</div>
     <div class="lc-rule"></div>
-    <div class="lc-sub" style="letter-spacing: 4px; font-size: 14px; margin-top: 10px;">Jan Tschichold, 1928</div>
+    <div class="lc-sub" style="letter-spacing: 4px; font-size: 14px; margin-top: 10px;">Jan Tschichold, 1947</div>
   </div>
 <div class="land-bg-neue" id="landBgNeue">
     <div class="ln-label">1928</div>
@@ -956,8 +956,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
     <span class="logo" onclick="location.hash='#landing'" title="처음 화면으로 돌아가기">Tschichold Lab</span>
     <div class="topbar-nav">
       <button class="tb-btn" id="btnIntro" onclick="location.hash='#select-mode'">실험실 안내</button>
-      <button class="tb-btn" id="btnMedium" onclick="openMediaMode()">매체 모드</button>
-      <button class="tb-btn" id="btnTemplate" onclick="location.hash='#template'">템플릿 모드</button>
+      <button class="tb-btn" id="btnMedium" onclick="openMediaMode()">그리드 실습</button>
+      <button class="tb-btn" id="btnTemplate" onclick="location.hash='#template'">템플릿 응용</button>
     </div>
   </div>
   <div class="lab-body">
@@ -999,14 +999,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
             <!-- 매체 모드 카드 -->
             <div class="ms-card" onclick="openMediaMode()">
               <div class="msc-tag">Grid & Ratio</div>
-              <h2 class="msc-title">매체 모드</h2>
+              <h2 class="msc-title">그리드 실습</h2>
               <p class="msc-desc">얀 치홀트의 역사적 정렬 시스템에 맞춰 포스터, 광고, 책 요소들을 직접 드래그하여 배치하고 원본과 오차를 대조해 봅니다.</p>
               <span class="msc-btn">진입하기 →</span>
             </div>
             <!-- 템플릿 모드 카드 -->
             <div class="ms-card" onclick="location.hash='#template'">
               <div class="msc-tag">Typography Composition</div>
-              <h2 class="msc-title">템플릿 모드</h2>
+              <h2 class="msc-title">템플릿 응용</h2>
               <p class="msc-desc">얀 치홀트의 실제 작업물들을 구현한 템플릿 카드 갤러리에서 마음에 드는 디자인을 이미지와 골라 서체, 자간, 굵기를 직접 변경하고 변주해 봅니다.</p>
               <span class="msc-btn">진입하기 →</span>
             </div>
@@ -1075,27 +1075,32 @@ html,body{width:100%;height:100%;overflow:hidden;background:#f5f5f0;color:#111}
 
           <!-- 실존 원본 도판 정보 섹션 추가 -->
           <div class="panel-section" id="originalWorkSection" style="border-top: 1px solid #eee; padding-top: 16px; display: none;">
-            <div class="panel-label">실존 원본 정보</div>
-            <div class="original-work-preview-wrap">
-              <div class="original-work-preview-placeholder" id="originalWorkPreviewPlaceholder">
-                이미지 파일 준비 중<br><span style="font-size: 9px; opacity: 0.6; display: block; margin-top: 4px;" id="placeholderFilename">classic-1.jpg</span>
+            <div class="panel-label" onclick="toggleOriginalWorkDetail()" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; margin-bottom: 0;">
+              <span>실존 원본 정보</span>
+              <span id="owToggleArrow" style="font-size: 9px; transition: transform 0.25s; transform: rotate(180deg);">▼</span>
+            </div>
+            <div id="originalWorkDetailContent" style="display: none; margin-top: 14px;">
+              <div class="original-work-preview-wrap">
+                <div class="original-work-preview-placeholder" id="originalWorkPreviewPlaceholder">
+                  이미지 파일 준비 중<br><span style="font-size: 9px; opacity: 0.6; display: block; margin-top: 4px;" id="placeholderFilename">classic-1.jpg</span>
+                </div>
+                <img class="original-work-preview-img" id="originalWorkPreviewImg" style="display:none;" onerror="showOverlayPlaceholder(true)" onload="showOverlayPlaceholder(false)">
               </div>
-              <img class="original-work-preview-img" id="originalWorkPreviewImg" style="display:none;" onerror="showOverlayPlaceholder(true)" onload="showOverlayPlaceholder(false)">
-            </div>
-            <div class="original-work-meta" style="margin-top: 10px;">
-              <div class="ow-title" id="owTitle" style="font-size: 12px; font-weight: bold; color: #111; line-height: 1.3;"></div>
-              <div class="ow-year" id="owYear" style="font-size: 11px; color: #666; margin-top: 2px;"></div>
-            </div>
-            <div class="original-work-rules" id="originalWorkRules" style="margin-top: 12px; font-size: 11px; color: #555; line-height: 1.5; max-height: 120px; overflow-y: auto; background: rgba(0,0,0,0.02); padding: 8px; border: 1px solid #eee;">
-            </div>
-            
-            <div class="overlay-control-row" style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px;">
-              <label style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: bold; color: #888; cursor: pointer; text-transform: uppercase; font-family: 'Arial Narrow', sans-serif; user-select: none;">
-                <input type="checkbox" id="chkCanvasOverlay" onchange="toggleCanvasOverlay(this.checked)" style="accent-color: #111; cursor: pointer;"> 캔버스에 겹쳐보기
-              </label>
-              <div id="overlayOpacityControl" style="display: none; align-items: center; justify-content: space-between; gap: 8px;">
-                <input type="range" id="rngOverlayOpacity" min="5" max="95" value="25" oninput="updateCanvasOverlayOpacity(this.value)" style="flex: 1; height: 2px; accent-color: #111; cursor: pointer;">
-                <span id="lblOverlayOpacity" style="font-size: 11px; font-family: 'Arial Narrow', sans-serif; color: #555; min-width: 24px; text-align: right;">25%</span>
+              <div class="original-work-meta" style="margin-top: 10px;">
+                <div class="ow-title" id="owTitle" style="font-size: 12px; font-weight: bold; color: #111; line-height: 1.3; font-family: 'Jost', 'Pretendard', sans-serif;"></div>
+                <div class="ow-year" id="owYear" style="font-size: 11px; color: #666; margin-top: 2px; font-family: 'Jost', 'Pretendard', sans-serif;"></div>
+              </div>
+              <div class="original-work-rules" id="originalWorkRules" style="margin-top: 12px; font-size: 11px; color: #555; line-height: 1.5; max-height: 120px; overflow-y: auto; background: rgba(0,0,0,0.02); padding: 8px; border: 1px solid #eee; font-family: 'Jost', 'Pretendard', sans-serif;">
+              </div>
+              
+              <div class="overlay-control-row" style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px;">
+                <label style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: bold; color: #888; cursor: pointer; text-transform: uppercase; font-family: 'Jost', 'Pretendard', sans-serif; user-select: none;">
+                  <input type="checkbox" id="chkCanvasOverlay" onchange="toggleCanvasOverlay(this.checked)" style="accent-color: #111; cursor: pointer;"> 캔버스에 겹쳐보기
+                </label>
+                <div id="overlayOpacityControl" style="display: none; align-items: center; justify-content: space-between; gap: 8px;">
+                  <input type="range" id="rngOverlayOpacity" min="5" max="95" value="25" oninput="updateCanvasOverlayOpacity(this.value)" style="flex: 1; height: 2px; accent-color: #111; cursor: pointer;">
+                  <span id="lblOverlayOpacity" style="font-size: 11px; font-family: 'Jost', 'Pretendard', sans-serif; color: #555; min-width: 24px; text-align: right;">25%</span>
+                </div>
               </div>
             </div>
           </div>
@@ -1138,6 +1143,8 @@ const landBgNeue    = document.getElementById('landBgNeue');
 const landDivider   = document.getElementById('landDivider');
 const landCursor    = document.getElementById('landCursorCustom');
 const lnAccent      = document.getElementById('lnAccent');
+const lnTitle       = document.querySelector('.ln-title');
+const lnSub         = document.querySelector('.ln-sub');
 
 let landPct = 50, targetPct = 50;
 let landCurX = window.innerWidth / 2, landCurY = window.innerHeight / 2;
@@ -1180,7 +1187,10 @@ function renderLanding(){
   landCursor.style.left = landCurX + 'px';
   landCursor.style.top  = landCurY + 'px';
   const neueRatio = clamp(landPct / 100, 0, 1);
-  lnAccent.style.width = (neueRatio * 120) + 'px';
+  const minW = 150;
+  const titleWidth = lnTitle ? lnTitle.offsetWidth : 300;
+  const maxW = titleWidth > 0 ? titleWidth : 300;
+  lnAccent.style.width = (minW + neueRatio * (maxW - minW)) + 'px';
   const classicRatio = clamp((100 - landPct) / 100, 0, 1);
   landBgClassic.style.opacity = 0.6 + classicRatio * 0.4;
   landBgNeue.style.opacity    = 0.6 + neueRatio * 0.4;
@@ -1900,6 +1910,20 @@ function showOverlayPlaceholder(isError) {
   }
 }
 
+function toggleOriginalWorkDetail() {
+  const content = document.getElementById('originalWorkDetailContent');
+  const arrow = document.getElementById('owToggleArrow');
+  if (!content || !arrow) return;
+  
+  if (content.style.display === 'none') {
+    content.style.display = 'block';
+    arrow.style.transform = 'rotate(0deg)';
+  } else {
+    content.style.display = 'none';
+    arrow.style.transform = 'rotate(180deg)';
+  }
+}
+
 function toggleCanvasOverlay(checked) {
   const opacityCtrl = document.getElementById('overlayOpacityControl');
   if (opacityCtrl) opacityCtrl.style.display = checked ? 'flex' : 'none';
@@ -2033,12 +2057,31 @@ function createTplBlock(bd, cw, ch){
     el.className = 'tpl-text-block';
     el.dataset.type = 'text';
     const inner = document.createElement('div');
-    inner.contentEditable = 'true';
+    inner.contentEditable = 'false';
     inner.spellcheck = false;
     inner.style.cssText = (bd.style || 'font-family:\"Jost\", \"Pretendard\", \"Arial Narrow\", Arial, sans-serif;font-size:14px;color:#111;') +
-      'outline:none;width:100%;min-height:100%;white-space:pre-wrap;word-break:break-word;';
+      'outline:none;width:100%;min-height:100%;white-space:pre-wrap;word-break:break-word;cursor:default;';
     inner.textContent = (bd.content !== undefined) ? bd.content : '텍스트를 입력하세요';
-    inner.addEventListener('focus', ()=>{ if(inner.textContent === '텍스트를 입력하세요' || inner.textContent === 'Enter text') inner.textContent=''; });
+    
+    inner.addEventListener('focus', () => { 
+      if(inner.textContent === '텍스트를 입력하세요' || inner.textContent === 'Enter text') inner.textContent = ''; 
+    });
+    
+    inner.addEventListener('dblclick', function(e) {
+      e.stopPropagation();
+      this.contentEditable = 'true';
+      this.style.cursor = 'text';
+      this.focus();
+    });
+    
+    inner.addEventListener('blur', function() {
+      this.contentEditable = 'false';
+      this.style.cursor = 'default';
+      if(this.textContent.trim() === '') {
+        this.textContent = '텍스트를 입력하세요';
+      }
+    });
+    
     el.appendChild(inner);
 
   } else {
@@ -2083,11 +2126,11 @@ function createTplBlock(bd, cw, ch){
 
   makeTplDraggable(el);
   el.addEventListener('mousedown', e => {
-    if(e.target.contentEditable === 'true') return;
+    if(e.target.isContentEditable) return;
     selectTplBlock(el);
   });
   el.addEventListener('click', e => {
-    if(e.target.contentEditable !== 'true') selectTplBlock(el);
+    if(!e.target.isContentEditable) selectTplBlock(el);
   });
 
   return el;
@@ -2099,7 +2142,7 @@ let tplDragEl=null, tplDragOx=0, tplDragOy=0;
 function makeTplDraggable(el){
   el.addEventListener('mousedown', e => {
     if(isPresentationMode) return;
-    if(e.target.contentEditable === 'true') return;
+    if(e.target.isContentEditable) return;
     if(spaceDown) return;
     e.preventDefault();
     tplDragEl = el;
@@ -2169,10 +2212,14 @@ function renderTplPanel(el){
     const st = inner ? inner.style : {};
 
     const fontOptions = [
-      {v:'Georgia,serif',l:'Georgia'},
+      {v:'"Jost", "Pretendard", "Arial Narrow", sans-serif',l:'Jost & Pretendard (Gothic)'},
       {v:'"Arial Narrow",Arial,sans-serif',l:'Arial Narrow'},
-      {v:'"Times New Roman",serif',l:'Times New Roman'},
       {v:'Arial,sans-serif',l:'Arial'},
+      {v:'"Courier New",monospace',l:'Courier New (Monospace)'},
+      {v:'Impact,sans-serif',l:'Impact (Headline)'},
+      {v:'"Cormorant Garamond","Noto Serif KR",serif',l:'Cormorant & Noto Serif'},
+      {v:'Georgia,serif',l:'Georgia (Serif)'},
+      {v:'"Times New Roman",serif',l:'Times New Roman (Serif)'},
     ];
     const weightOptions = [{v:'400',l:'Regular'},{v:'700',l:'Bold'},{v:'900',l:'Black'}];
 
@@ -2182,7 +2229,7 @@ function renderTplPanel(el){
         <div class="bp-row">
           <span class="bp-label">폰트</span>
           <select class="bp-select" id="bpFont" onchange="updateTplText('fontFamily',this.value)">
-            ${fontOptions.map(o=>`<option value="${o.v}" ${(st.fontFamily||'').includes(o.v.split(',')[0].replace(/"/g,''))?'selected':''}>${o.l}</option>`).join('')}
+            ${fontOptions.map(o=>`<option value='${o.v}' ${(st.fontFamily||'').includes(o.v.split(',')[0].replace(/"/g,''))?'selected':''}>${o.l}</option>`).join('')}
           </select>
         </div>
         <div class="bp-row">
